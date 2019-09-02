@@ -103,6 +103,7 @@ class App extends React.Component {
                   <Analysis
                     {...analysis}
                     className={styles.section}
+                    key={idx}
                     onClose={this.createCloseFn(idx)}
                     text={text}
                   />
