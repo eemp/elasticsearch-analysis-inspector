@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -155,13 +156,16 @@ function withLiveAnalyze(Component) {
 export default withLiveAnalyze(Analysis);
 
 const TokenChips = (props) => {
-  const { tokens } = props;
+  const { onTokenSelect, selectedStartOffset, tokens } = props;
   const styles = useStyles();
   const chips = _.map(tokens, tokenDetails => (
     <Chip
+      avatar={<Avatar>{tokenDetails.start_offset}</Avatar>}
       className={styles.chip}
-      key={tokenDetails.position}
+      color={selectedStartOffset === tokenDetails.start_offset ? 'primary' : undefined}
+      key={tokenDetails.start_offset}
       label={tokenDetails.token}
+      onClick={() => onTokenSelect(tokenDetails.start_offset)}
     />
   ));
   return (
