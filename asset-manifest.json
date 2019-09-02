@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.34de6062.chunk.css",
-    "main.js": "/static/js/main.062530d9.chunk.js",
-    "main.js.map": "/static/js/main.062530d9.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/css/2.f4ed24ec.chunk.css": "/static/css/2.f4ed24ec.chunk.css",
-    "static/js/2.6e0dd82a.chunk.js": "/static/js/2.6e0dd82a.chunk.js",
-    "static/js/2.6e0dd82a.chunk.js.map": "/static/js/2.6e0dd82a.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.64e754661d3fb7e68ab9d830657095f0.js": "/precache-manifest.64e754661d3fb7e68ab9d830657095f0.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.f4ed24ec.chunk.css.map": "/static/css/2.f4ed24ec.chunk.css.map",
-    "static/css/main.34de6062.chunk.css.map": "/static/css/main.34de6062.chunk.css.map"
+    "main.css": "/elasticsearch-analysis-inspector/static/css/main.34de6062.chunk.css",
+    "main.js": "/elasticsearch-analysis-inspector/static/js/main.062530d9.chunk.js",
+    "main.js.map": "/elasticsearch-analysis-inspector/static/js/main.062530d9.chunk.js.map",
+    "runtime~main.js": "/elasticsearch-analysis-inspector/static/js/runtime~main.657034a2.js",
+    "runtime~main.js.map": "/elasticsearch-analysis-inspector/static/js/runtime~main.657034a2.js.map",
+    "static/css/2.f4ed24ec.chunk.css": "/elasticsearch-analysis-inspector/static/css/2.f4ed24ec.chunk.css",
+    "static/js/2.a90de784.chunk.js": "/elasticsearch-analysis-inspector/static/js/2.a90de784.chunk.js",
+    "static/js/2.a90de784.chunk.js.map": "/elasticsearch-analysis-inspector/static/js/2.a90de784.chunk.js.map",
+    "index.html": "/elasticsearch-analysis-inspector/index.html",
+    "precache-manifest.ad44dbc27579b477bf83da65c21c1cb6.js": "/elasticsearch-analysis-inspector/precache-manifest.ad44dbc27579b477bf83da65c21c1cb6.js",
+    "service-worker.js": "/elasticsearch-analysis-inspector/service-worker.js",
+    "static/css/2.f4ed24ec.chunk.css.map": "/elasticsearch-analysis-inspector/static/css/2.f4ed24ec.chunk.css.map",
+    "static/css/main.34de6062.chunk.css.map": "/elasticsearch-analysis-inspector/static/css/main.34de6062.chunk.css.map"
   }
 }
