@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Editor from './Editor';
@@ -21,14 +22,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EDIT_MODE = 'edit';
-const VISUAL_MODE = 'visual';
+export const EDIT_MODE = 'edit';
+export const VISUAL_MODE = 'visual';
+
+const DEFAULT_NAME = 'New Analyzer';
 
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: VISUAL_MODE,
+      mode: props.mode || VISUAL_MODE,
+      name: props.name || DEFAULT_NAME,
     };
     this.onChange = this.onChange.bind(this);
     this.onEdit = this.onEdit.bind(this);
@@ -45,8 +49,12 @@ class Analysis extends React.Component {
     const updatedDefinition = JSON.parse(this.refs.editor.refs.monaco.editor.getValue());
     this.setState({
       mode: VISUAL_MODE,
+      name: this.nameField.value,
     });
-    _.isFunction(onChange) && onChange(updatedDefinition);
+    _.isFunction(onChange) && onChange({
+      definition: updatedDefinition,
+      name: this.nameField.value,
+    });
   }
 
   inEditMode() {
@@ -55,7 +63,8 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { className, definition, description, name, onClose } = this.props;
+    const { className, definition, description, onClose } = this.props;
+    const { name } = this.state;
     return (
       <Card className={className}>
         <CardHeader
@@ -76,7 +85,11 @@ class Analysis extends React.Component {
             </CardActions>
           }
           subheader={description}
-          title={`${name} Analyzer`}
+          title={
+            this.inEditMode()
+              ? <TextField inputRef={ref => this.nameField = ref} variant="filled" defaultValue={name} />
+              : name
+          }
         />
         <CardContent>
           {
@@ -107,7 +120,7 @@ function withLiveAnalyze(Component) {
       this.updateAnalysis();
     }
 
-    onChange(definition) {
+    onChange({ definition }) {
       this.setState({
         definition,
       }, this.updateAnalysis);
