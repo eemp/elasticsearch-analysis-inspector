@@ -22,7 +22,6 @@ export function updateAnalysis(analysis, text) {
     const { tokens } = res.data;
     return _.assign({}, analysis, {
       tokens,
-      //tokens: _.map(tokens, ({token}) => token),
     });
   });
 }
