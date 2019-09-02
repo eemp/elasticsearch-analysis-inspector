@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
-import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -51,14 +50,6 @@ class App extends React.Component {
     };
   }
 
-  onChange(ev) {
-    const { analyses } = this.state;
-    const updatedText = ev.target.value;
-    updateAnalyses(analyses, updatedText).then(updatedAnalyses =>
-      this.setState({ analyses: updatedAnalyses })
-    );
-  }
-
   onClose(analysisKey) {
     const { analyses } = this.state;
     this.setState({
@@ -66,6 +57,13 @@ class App extends React.Component {
         analysis.key !== analysisKey && analysisKey !== idx
       ),
     });
+  }
+
+  onChange() {
+    const { analyses, text } = this.state;
+    updateAnalyses(analyses, text).then(updatedAnalyses =>
+      this.setState({ analyses: updatedAnalyses })
+    );
   }
 
   render() {
@@ -89,8 +87,9 @@ class App extends React.Component {
                 label="Text"
                 onChange={
                   ev => {
+                    const text = ev.target.value;
                     ev.persist();
-                    this.onChange(ev);
+                    this.setState({text}, this.onChange);
                   }
                 }
                 variant="outlined"
@@ -102,9 +101,11 @@ class App extends React.Component {
               {
                 _.map(analyses, (analysis, idx) => (
                   <Analysis
-                    className={styles.section}
-                    onClose={this.createCloseFn(idx)}
                     {...analysis}
+                    className={styles.section}
+                    key={idx}
+                    onClose={this.createCloseFn(idx)}
+                    text={text}
                   />
                 ))
               }

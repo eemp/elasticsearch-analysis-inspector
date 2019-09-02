@@ -21,7 +21,7 @@ export function updateAnalysis(analysis, text) {
   }).then(res => {
     const { tokens } = res.data;
     return _.assign({}, analysis, {
-      tokens: _.map(tokens, ({token}) => token),
+      tokens,
     });
   });
 }
