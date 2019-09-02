@@ -1,4 +1,4 @@
-const sampleText = 'quick brown fox jumps over the dog then it jumped yet again until dog follow suit';
+const sampleText = '<p>quick brown fox jumps over the dog then it jumped yet again until dog follow suit</p>';
 
 const analyses = [
   {
@@ -7,7 +7,6 @@ const analyses = [
       analyzer: 'standard',
     },
     description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
-    tokens: sampleText.split(' ' ),
   },
   {
     name: 'Stop',
@@ -15,7 +14,6 @@ const analyses = [
       analyzer: 'stop',
     },
     description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
-    tokens: sampleText.split(' '),
   },
   {
     name: 'Custom',
@@ -25,7 +23,6 @@ const analyses = [
       filter: [ 'lowercase', 'kstem' ],
     },
     description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
-    tokens: sampleText.split(' '),
   },
 ];
 
