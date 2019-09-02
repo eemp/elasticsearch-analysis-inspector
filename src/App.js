@@ -45,6 +45,7 @@ class App extends React.Component {
       750
     );
     this.onClose = this.onClose.bind(this);
+    this.onTokenSelect = this.onTokenSelect.bind(this);
   }
 
   createCloseFn(analysisKey) {
@@ -80,9 +81,20 @@ class App extends React.Component {
     });
   }
 
+  onTokenSelect(startOffset) {
+    const { selectedStartOffset } = this.state;
+    const updatedVal = selectedStartOffset === startOffset
+      ? null
+      : startOffset
+    ;
+    this.setState({
+      selectedStartOffset: updatedVal,
+    });
+  }
+
   render() {
     const { classes: styles } = this.props;
-    const { analyses, text } = this.state;
+    const { analyses, selectedStartOffset, text } = this.state;
 
     return (
       <div className={styles.app}>
@@ -124,6 +136,8 @@ class App extends React.Component {
                     className={styles.section}
                     key={analysis.key}
                     onClose={this.createCloseFn(analysis.key)}
+                    onTokenSelect={this.onTokenSelect}
+                    selectedStartOffset={selectedStartOffset}
                     text={text}
                   />
                 ))
