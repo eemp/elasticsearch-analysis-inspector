@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
+import uuid from 'uuid/v4';
 
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 //import { makeStyles, withStyles } from '@material-ui/styles';
 
-import Analysis from './Analysis';
+import Analysis, { EDIT_MODE } from './Analysis';
 import updateAnalyses from './services/analyze';
 
 import { analyses, sampleText } from './sample-data';
@@ -37,6 +39,7 @@ class App extends React.Component {
       analyses,
     };
     this.createCloseFn = this.createCloseFn.bind(this);
+    this.onAdd = this.onAdd.bind(this);
     this.onChange = _.debounce(
       this.onChange.bind(this),
       750
@@ -64,6 +67,17 @@ class App extends React.Component {
     updateAnalyses(analyses, text).then(updatedAnalyses =>
       this.setState({ analyses: updatedAnalyses })
     );
+  }
+
+  onAdd() {
+    const { analyses } = this.state;
+    const newAnalysis = _.assign({}, analyses[0], {
+      key: uuid(),
+      mode: EDIT_MODE,
+    });
+    this.setState({
+      analyses: _.concat(newAnalysis, analyses),
+    });
   }
 
   render() {
@@ -98,13 +112,18 @@ class App extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Container>
+              <Button variant="contained" color="secondary" onClick={this.onAdd} style={{float: 'right'}}>New Analyzer</Button>
+            </Container>
+          </Grid>
+          <Grid item xs={12}>
+            <Container>
               {
-                _.map(analyses, (analysis, idx) => (
+                _.map(analyses, analysis => (
                   <Analysis
                     {...analysis}
                     className={styles.section}
-                    key={idx}
-                    onClose={this.createCloseFn(idx)}
+                    key={analysis.key}
+                    onClose={this.createCloseFn(analysis.key)}
                     text={text}
                   />
                 ))
