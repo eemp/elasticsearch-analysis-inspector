@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-const sampleText = '<p>quick brown fox jumps over the dog then it jumped yet again until dog follow suit</p>';
+const sampleText = '<p>The quick brown fox jumps over the quick dog.</p>';
 
 const analyses = [
   {
@@ -8,7 +8,6 @@ const analyses = [
     definition: {
       analyzer: 'standard',
     },
-    description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
     key: uuid(),
   },
   {
@@ -16,7 +15,6 @@ const analyses = [
     definition: {
       analyzer: 'stop',
     },
-    description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
     key: uuid(),
   },
   {
@@ -26,7 +24,6 @@ const analyses = [
       char_filter: [ 'html_strip' ],
       filter: [ 'lowercase', 'kstem' ],
     },
-    description: 'Tokenizer: standard, filter: lowercase, snowball, standard',
     key: uuid(),
   },
 ];

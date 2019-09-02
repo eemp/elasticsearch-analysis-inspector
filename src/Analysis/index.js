@@ -130,19 +130,23 @@ function withLiveAnalyze(Component) {
     updateAnalysis() {
       const { text } = this.props;
       const { definition } = this.state;
+      const description = describeAnalyzer(definition);
+
       updateAnalysis({ definition }, text).then(({ tokens }) => {
         this.setState({
+          description,
           tokens,
         });
       });
     }
 
     render() {
-      const { definition, tokens } = this.state;
+      const { definition, description, tokens } = this.state;
       return (
         <Component
           {...this.props}
           definition={definition}
+          description={description}
           onChange={this.onChange}
           tokens={tokens}
         />
@@ -174,3 +178,13 @@ const TokenChips = (props) => {
     </React.Fragment>
   );
 };
+
+function describeAnalyzer(definition) {
+  const { analyzer, char_filter:charFilter, filter, tokenizer } = definition;
+  return _.compact([
+    analyzer && `Analyzer: ${analyzer}`,
+    tokenizer && `Tokenizer: ${tokenizer}`,
+    charFilter && `Character Filters: ${_.castArray(charFilter).join(' + ')}`,
+    filter && `Filters: ${_.castArray(filter).join(' + ')}`,
+  ]).join(', ');
+}
