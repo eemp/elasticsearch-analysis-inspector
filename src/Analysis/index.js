@@ -85,10 +85,10 @@ class Analysis extends React.Component {
               </IconButton>
             </CardActions>
           }
-          subheader={description}
+          subheader={!this.inEditMode() && description}
           title={
             this.inEditMode()
-              ? <TextField inputRef={ref => this.nameField = ref} variant="filled" defaultValue={name} />
+              ? <TextField inputRef={ref => this.nameField = ref} defaultValue={name} />
               : name
           }
         />

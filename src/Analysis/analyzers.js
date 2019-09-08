@@ -1,0 +1,86 @@
+const ANALYZERS = [
+  'custom',
+  'keyword',
+  'pattern',
+  'simple',
+  'standard',
+  'stop',
+  'whitespace',
+];
+
+const CHAR_FILTERS = [
+  'html_strip',
+  'mapping',
+  'pattern_replace',
+];
+
+const TOKENIZERS = [
+  'char_group',
+  'classic',
+  'edge_ngram',
+  'keyword',
+  'letter',
+  'lowercase',
+  'ngram',
+  'path',
+  'pattern',
+  'simple_pattern',
+  'simple_pattern_split',
+  'standard',
+  'uax_url_email',
+  'whitespace',
+];
+
+const TOKEN_FILTERS = [
+  'asciifolding',
+  'apostrophe',
+  'classic',
+  'common_ngrams',
+  'condition',
+  'decimal_digit',
+  'delimited_payload',
+  'edge_ngram',
+  'elision',
+  'flatten_graph',
+  'hunspell',
+  'keep',
+  'keep_types',
+  'keyword_marker',
+  'keyword_repeat',
+  'kstem',
+  'length',
+  'limit',
+  'lowercase',
+  'min_hash',
+  'multiplexer',
+  'ngram',
+  'pattern_capture',
+  'pattern_replace',
+  'phonetic',
+  'predicate_token_filter',
+  'porter_stem',
+  'remove_duplicates',
+  'reverse',
+  'shingle',
+  'snowball',
+  'stemmer',
+  'stemmer_override',
+  'stop',
+  'synonym',
+  'synonym_graph',
+  'trim',
+  'truncate',
+  'unique',
+  'uppercase',
+  'word_delimiter',
+  'word_delimiter_graph',
+];
+
+export default ANALYZERS;
+
+export {
+  ANALYZERS,
+  CHAR_FILTERS,
+  TOKENIZERS,
+  TOKEN_FILTERS,
+};
