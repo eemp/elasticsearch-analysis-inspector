@@ -172,7 +172,9 @@ function toSelectOption(value) {
   }
 
   return _.isArray(value) ? _.map(value, toSelectOption) : {
-    label: inflection.humanize(value),
+    label: inflection.humanize(
+      _.isPlainObject(value) ? value.type : value
+    ),
     value,
   };
 }

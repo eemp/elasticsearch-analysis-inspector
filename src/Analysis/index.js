@@ -184,7 +184,11 @@ function describeAnalyzer(definition) {
   return _.compact([
     analyzer && `Analyzer: ${analyzer}`,
     tokenizer && `Tokenizer: ${tokenizer}`,
-    charFilter && `Character Filters: ${_.castArray(charFilter).join(' + ')}`,
-    filter && `Filters: ${_.castArray(filter).join(' + ')}`,
+    charFilter && `Character Filters: ${_.castArray(charFilter).map(analyzerAspectToString).join(' + ')}`,
+    filter && `Filters: ${_.castArray(filter).map(analyzerAspectToString).join(' + ')}`,
   ]).join(', ');
+}
+
+function analyzerAspectToString(piece) {
+  return JSON.stringify(_.isPlainObject(piece) ? piece.type : piece);
 }
