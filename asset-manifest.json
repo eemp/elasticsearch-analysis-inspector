@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/elasticsearch-analysis-inspector/static/css/main.34de6062.chunk.css",
-    "main.js": "/elasticsearch-analysis-inspector/static/js/main.f63cff4a.chunk.js",
-    "main.js.map": "/elasticsearch-analysis-inspector/static/js/main.f63cff4a.chunk.js.map",
+    "main.js": "/elasticsearch-analysis-inspector/static/js/main.d3cd0773.chunk.js",
+    "main.js.map": "/elasticsearch-analysis-inspector/static/js/main.d3cd0773.chunk.js.map",
     "runtime~main.js": "/elasticsearch-analysis-inspector/static/js/runtime~main.657034a2.js",
     "runtime~main.js.map": "/elasticsearch-analysis-inspector/static/js/runtime~main.657034a2.js.map",
-    "static/css/2.2a46b0f1.chunk.css": "/elasticsearch-analysis-inspector/static/css/2.2a46b0f1.chunk.css",
-    "static/js/2.151f0c4e.chunk.js": "/elasticsearch-analysis-inspector/static/js/2.151f0c4e.chunk.js",
-    "static/js/2.151f0c4e.chunk.js.map": "/elasticsearch-analysis-inspector/static/js/2.151f0c4e.chunk.js.map",
+    "static/css/2.18fbbb97.chunk.css": "/elasticsearch-analysis-inspector/static/css/2.18fbbb97.chunk.css",
+    "static/js/2.8808a070.chunk.js": "/elasticsearch-analysis-inspector/static/js/2.8808a070.chunk.js",
+    "static/js/2.8808a070.chunk.js.map": "/elasticsearch-analysis-inspector/static/js/2.8808a070.chunk.js.map",
     "index.html": "/elasticsearch-analysis-inspector/index.html",
-    "precache-manifest.81219a0fb4655cac6ca53902ad0ed023.js": "/elasticsearch-analysis-inspector/precache-manifest.81219a0fb4655cac6ca53902ad0ed023.js",
+    "precache-manifest.28f3d2f2957eaea8668c1593413c0069.js": "/elasticsearch-analysis-inspector/precache-manifest.28f3d2f2957eaea8668c1593413c0069.js",
     "service-worker.js": "/elasticsearch-analysis-inspector/service-worker.js",
-    "static/css/2.2a46b0f1.chunk.css.map": "/elasticsearch-analysis-inspector/static/css/2.2a46b0f1.chunk.css.map",
+    "static/css/2.18fbbb97.chunk.css.map": "/elasticsearch-analysis-inspector/static/css/2.18fbbb97.chunk.css.map",
     "static/css/main.34de6062.chunk.css.map": "/elasticsearch-analysis-inspector/static/css/main.34de6062.chunk.css.map"
   }
 }
