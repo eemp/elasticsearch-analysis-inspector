@@ -2,17 +2,15 @@ import _ from 'lodash';
 import React from 'react';
 import uuid from 'uuid/v4';
 
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
 import Analysis, { EDIT_MODE } from './Analysis';
+import AppBar from './AppBar';
 import theme from './theme';
 import updateAnalyses from './services/analyze';
 
@@ -21,8 +19,8 @@ import { analyses, sampleText } from './sample-data';
 const useStyles = makeStyles(theme => ({
   app: {
     backgroundColor: '#fbfbfb',
+    minHeight: '100vh',
   },
-  appBarSpacer: theme.mixins.toolbar,
   chip: {
     margin: theme.spacing(1),
   },
@@ -100,12 +98,7 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <div className={styles.app}>
-          <AppBar position="absolute">
-            <Toolbar>
-              <Typography variant="h6">Elasticsearch Analysis Inspector</Typography>
-            </Toolbar>
-          </AppBar>
-          <div className={styles.appBarSpacer} />
+          <AppBar />
           <Grid container>
             <Grid item xs={12}>
               <Container className={styles.section}>
