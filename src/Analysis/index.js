@@ -110,7 +110,10 @@ function withLiveAnalyze(Component) {
       const { definition, tokens } = props;
       super(props);
       this.onChange = this.onChange.bind(this);
-      this.updateAnalysis = this.updateAnalysis.bind(this);
+      this.triggerAnalysis = _.debounce(
+        this.triggerAnalysis.bind(this),
+        750
+      );
       this.state = {
         definition,
         tokens,
@@ -118,16 +121,25 @@ function withLiveAnalyze(Component) {
     }
 
     componentDidMount() {
-      this.updateAnalysis();
+      this.triggerAnalysis();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      const { text } = this.props;
+      const { text: prevText } = prevProps;
+
+      if(text !== prevText) {
+        this.triggerAnalysis();
+      }
     }
 
     onChange({ definition }) {
       this.setState({
         definition,
-      }, this.updateAnalysis);
+      }, this.triggerAnalysis);
     }
 
-    updateAnalysis() {
+    triggerAnalysis() {
       const { text } = this.props;
       const { definition } = this.state;
       const description = describeAnalyzer(definition);
