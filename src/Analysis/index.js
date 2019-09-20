@@ -11,9 +11,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
+import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
 import Editor from './Editor';
 import { updateAnalysis } from '../services/analyze';
 
@@ -142,11 +144,10 @@ function withLiveAnalyze(Component) {
     triggerAnalysis() {
       const { text } = this.props;
       const { definition } = this.state;
-      const description = describeAnalyzer(definition);
 
       updateAnalysis({ definition }, text).then(({ tokens }) => {
         this.setState({
-          description,
+          description: <AnalysisDescription {...definition} />,
           tokens,
         });
       });
@@ -174,12 +175,12 @@ export default withLiveAnalyze(Analysis);
 const TokenChips = (props) => {
   const { onTokenSelect, selectedStartOffset, tokens } = props;
   const styles = useStyles();
-  const chips = _.map(tokens, tokenDetails => (
+  const chips = _.map(tokens, (tokenDetails, idx) => (
     <Chip
       avatar={<Avatar>{tokenDetails.start_offset}</Avatar>}
       className={styles.chip}
       color={selectedStartOffset === tokenDetails.start_offset ? 'primary' : undefined}
-      key={tokenDetails.start_offset}
+      key={`${tokenDetails.start_offset}-${idx}`}
       label={tokenDetails.token}
       onClick={() => onTokenSelect(tokenDetails.start_offset)}
     />
@@ -191,16 +192,65 @@ const TokenChips = (props) => {
   );
 };
 
-function describeAnalyzer(definition) {
-  const { analyzer, char_filter:charFilter, filter, tokenizer } = definition;
-  return _.compact([
-    analyzer && `Analyzer: ${analyzer}`,
-    tokenizer && `Tokenizer: ${tokenizer}`,
-    charFilter && `Character Filters: ${_.castArray(charFilter).map(analyzerAspectToString).join(' + ')}`,
-    filter && `Filters: ${_.castArray(filter).map(analyzerAspectToString).join(' + ')}`,
-  ]).join(', ');
+function AnalysisDescription(props) {
+  const { analyzer, char_filter:charFilter, filter, tokenizer } = props;
+  return (
+    <React.Fragment>
+      {
+        commaSeparate(_.compact([
+          analyzer && <AnalysisAspectDescription key="analyzer-desc" type="analyzer" value={analyzer} />,
+          tokenizer && <AnalysisAspectDescription key="tokenizer-desc" type="tokenizer" value={tokenizer} />,
+          charFilter && <AnalysisAspectDescription key="charfilter-desc" type="charfilter" value={charFilter} />,
+          filter && <AnalysisAspectDescription key="tokenfilter-desc" type="tokenfilter" value={filter} />,
+        ]))
+      }
+    </React.Fragment>
+  );
 }
 
-function analyzerAspectToString(piece) {
-  return JSON.stringify(_.isPlainObject(piece) ? piece.type : piece);
+function AnalysisAspectDescription(props) {
+  const { type, value } = props;
+  const labels = {
+    analyzer: 'Analyzer',
+    charfilter: 'Character Filters',
+    tokenfilter: 'Filters',
+    tokenizer: 'Tokenizer',
+  };
+  const label = labels[type];
+  const renderedValues = commaSeparate(
+    _.castArray(value).map(val => <DocsLink key={val.type || val} type={type} analysisAspect={val} />),
+  );
+
+  return (
+    <span>{label}: {renderedValues}</span>
+  );
+}
+
+function DocsLink(props) {
+  const { analysisAspect, type } = props;
+  const analysisAspectLabel = analysisAspect.type || analysisAspect;
+  const elasticDocsUrl = getDocsPage(type, analysisAspectLabel);
+
+  return (
+    <Link color="secondary" href={elasticDocsUrl} target="_blank">{analysisAspectLabel}</Link>
+  );
+}
+
+function commaSeparate(elementList) {
+  return _.flatMap(elementList, (element, idx) => elementList.length - 1 !== idx ? [ element, ', ' ] : element);
+}
+
+function getDocsPage(type, analysisAspect) {
+  const docsByType = {
+    analyzer: ANALYZERS,
+    charfilter: CHAR_FILTERS,
+    tokenfilter: TOKEN_FILTERS,
+    tokenizer: TOKENIZERS,
+  };
+  const docs = docsByType[type];
+
+  return _.get(
+    _.find(docs, doc => doc.value === analysisAspect),
+    'link'
+  );
 }

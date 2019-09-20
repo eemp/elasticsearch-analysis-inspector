@@ -15,10 +15,10 @@ import Tab from '@material-ui/core/Tab';
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
 import Select from '../Select';
 
-const ANALYZER_OPTIONS = _.map(ANALYZERS, toSelectOption);
-const CHAR_FILTER_OPTIONS = _.map(CHAR_FILTERS, toSelectOption);
-const TOKENIZER_OPTIONS = _.map(TOKENIZERS, toSelectOption);
-const TOKEN_FILTER_OPTIONS = _.map(TOKEN_FILTERS, toSelectOption);
+const ANALYZER_OPTIONS = _.map(ANALYZERS, 'value').map(toSelectOption);
+const CHAR_FILTER_OPTIONS = _.map(CHAR_FILTERS, 'value').map(toSelectOption);
+const TOKENIZER_OPTIONS = _.map(TOKENIZERS, 'value').map(toSelectOption);
+const TOKEN_FILTER_OPTIONS = _.map(TOKEN_FILTERS, 'value').map(toSelectOption);
 
 class Editor extends React.Component {
   constructor(props) {
