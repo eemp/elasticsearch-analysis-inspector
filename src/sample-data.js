@@ -4,6 +4,7 @@ const sampleText = '<p>The quick brown fox jumps over the quick dog.</p>';
 
 const analyses = [
   {
+    //mode: 'edit',
     name: 'General Content Analyzer',
     definition: {
       tokenizer: 'standard',

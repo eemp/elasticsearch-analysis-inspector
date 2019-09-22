@@ -3,17 +3,9 @@ import inflection from 'inflection';
 import MonacoEditor from 'react-monaco-editor';
 import React from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import CodeIcon from '@material-ui/icons/Code';
-import DescriptionIcon from '@material-ui/icons/Description';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { EuiComboBox, EuiForm, EuiFormRow, EuiSpacer, EuiTabbedContent } from '@elastic/eui';
 
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
-import Select from '../Select';
 
 const ANALYZER_OPTIONS = _.map(ANALYZERS, 'value').map(toSelectOption);
 const CHAR_FILTER_OPTIONS = _.map(CHAR_FILTERS, 'value').map(toSelectOption);
@@ -26,13 +18,12 @@ class Editor extends React.Component {
     this.editorWillMount = this.editorWillMount.bind(this);
     this.onAnalyzerChange = this.onDefinitionChange.bind(this, 'analyzer');
     this.onCharFilterChange = this.onDefinitionChange.bind(this, 'char_filter');
+    this.onTabChange = this.onTabChange.bind(this);
     this.onTokenizerChange = this.onDefinitionChange.bind(this, 'tokenizer');
     this.onTokenFilterChange = this.onDefinitionChange.bind(this, 'filter');
     this.onDefinitionChange = this.onDefinitionChange.bind(this);
-    this.onTabChange = this.onTabChange.bind(this);
     this.state = {
       editorContent: props.content && JSON.stringify(props.content, null, 2),
-      selectedTab: 1,
       ...toFriendlyRep(props.content),
     };
   }
@@ -46,35 +37,16 @@ class Editor extends React.Component {
     //});
   }
 
-  onTabChange(event, selectedTab) {
-    this.setState({ selectedTab });
-    if(selectedTab === 1) {
-      this.setState({
-        editorContent: this.refs.monaco.editor.getValue(),
-        ...toFriendlyRep(this.refs.monaco.editor.getValue()),
-      });
-    }
-  }
-
   onDefinitionChange(field, value) {
-    let { analyzer, char_filter, filter, tokenizer } = this.state;
-    if(field === 'analyzer' && value.value === 'custom') {
-      char_filter = tokenizer = filter = undefined;
+    const ourValue = this.getValue();
+    if(field === 'analyzer' && _.get(value, '0.value') === 'custom') {
+      ourValue.char_filter = ourValue.tokenizer = ourValue.filter = undefined;
     }
 
     this.setState({
       [field]: value,
       editorContent: JSON.stringify({
-        analyzer: _.get(analyzer, 'value') !== 'custom'
-          ? _.get(analyzer, 'value')
-          : undefined,
-        char_filter: char_filter
-          ? char_filter.map(option => option.value)
-          : undefined,
-        filter: filter
-          ? filter.map(option => option.value)
-          : undefined,
-        tokenizer: _.get(tokenizer, 'value'),
+        ...ourValue,
         [field]: _.isArray(value)
           ? _.map(value, option => option.value)
           : value,
@@ -82,34 +54,40 @@ class Editor extends React.Component {
     });
   }
 
-  render() {
-    const { analyzer, char_filter, editorContent, filter, tokenizer, selectedTab } = this.state;
-
-    function TabPanel(props) {
-      const { children, tabIdx } = props;
-
-      return (
-        <Box hidden={selectedTab !== tabIdx}>
-          {children}
-        </Box>
-      );
+  onTabChange(selectedTab) {
+    this.setState({ selectedTab });
+    if(selectedTab.id !== 'code') {
+      this.setState({
+        editorContent: this.refs.monaco.editor.getValue(),
+        ...toFriendlyRep(this.refs.monaco.editor.getValue()),
+      });
     }
+  }
 
-    return (
-      <div>
-        <AppBar position="static" color="default">
-          <Tabs
-            indicatorColor="primary"
-            onChange={this.onTabChange}
-            textColor="primary"
-            value={selectedTab}
-            variant="fullWidth"
-          >
-            <Tab icon={<CodeIcon/>} />
-            <Tab icon={<DescriptionIcon/>} />
-          </Tabs>
-        </AppBar>
-        <TabPanel tabIdx={0}>
+  getValue() {
+    const { analyzer, char_filter, filter, tokenizer } = this.state;
+    return {
+      analyzer: _.get(analyzer, '0.value') !== 'custom'
+        ? _.get(analyzer, '0.value')
+        : undefined,
+      char_filter: char_filter
+        ? char_filter.map(option => option.value)
+        : undefined,
+      filter: filter
+        ? filter.map(option => option.value)
+        : undefined,
+      tokenizer: _.get(tokenizer, '0.value'),
+    };
+  }
+
+  render() {
+    const { analyzer, char_filter, editorContent, filter, tokenizer } = this.state;
+
+    const tabs = [
+      {
+        id: 'code',
+        name: 'Code',
+        content: (
           <MonacoEditor
             defaultValue={editorContent}
             editorWillMount={this.editorWillMount}
@@ -118,48 +96,65 @@ class Editor extends React.Component {
             ref="monaco"
             theme="vs-dark"
           />
-        </TabPanel>
-        <TabPanel tabIdx={1}>
-          <Paper elevation={3} square={true} style={{paddingTop: 20, paddingBottom: 40}}>
-            <Container>
-              <Select
+        ),
+      },
+      {
+        id: 'form',
+        name: 'Form',
+        content: (
+          <EuiForm style={{paddingTop: 20, paddingBottom: 40}}>
+            <EuiFormRow fullWidth label="Analyzer">
+              <EuiComboBox
+                fullWidth
                 onChange={this.onAnalyzerChange}
                 options={ANALYZER_OPTIONS}
-                placeholder="Select an analyzer type:"
-                value={analyzer}
+                placeholder="Select an analyzer type"
+                selectedOptions={analyzer}
+                singleSelection={{ asPlainText: true }}
               />
-            </Container>
-            <div style={{visibility: _.get(analyzer, 'value') !== 'custom' && 'hidden'}}>
-              <Container>
-                <Select
+            </EuiFormRow>
+            <div style={{visibility: _.get(analyzer, '0.value') !== 'custom' && 'hidden'}}>
+              <EuiSpacer />
+              <EuiFormRow fullWidth label="Tokenizer">
+                <EuiComboBox
+                  fullWidth
                   onChange={this.onTokenizerChange}
                   options={TOKENIZER_OPTIONS}
-                  placeholder="Select a tokenizer:"
-                  value={tokenizer}
+                  placeholder="Select a tokenizer"
+                  selectedOptions={tokenizer}
+                  singleSelection={{ asPlainText: true }}
                 />
-              </Container>
-              <Container>
-                <Select
-                  isMulti
+              </EuiFormRow>
+              <EuiFormRow fullWidth label="Character Filters">
+                <EuiComboBox
+                  fullWidth
                   onChange={this.onCharFilterChange}
                   options={CHAR_FILTER_OPTIONS}
-                  placeholder="Select a character filter:"
-                  value={char_filter}
+                  placeholder="Select character filters"
+                  selectedOptions={char_filter}
                 />
-              </Container>
-              <Container>
-                <Select
-                  isMulti
+              </EuiFormRow>
+              <EuiFormRow fullWidth label="Token Filters">
+                <EuiComboBox
+                  fullWidth
                   onChange={this.onTokenFilterChange}
                   options={TOKEN_FILTER_OPTIONS}
-                  placeholder="Select a token filter:"
-                  value={filter}
+                  placeholder="Select token filters"
+                  selectedOptions={filter}
                 />
-              </Container>
+              </EuiFormRow>
             </div>
-          </Paper>
-        </TabPanel>
-      </div>
+          </EuiForm>
+        ),
+      }
+    ];
+
+    return (
+      <EuiTabbedContent
+        tabs={tabs}
+        initialSelectedTab={tabs[1]}
+        onTabClick={this.onTabChange}
+      />
     );
   }
 }
@@ -188,9 +183,9 @@ function toFriendlyRep(jsonDef) {
   const { char_filter, filter, tokenizer } = (def || {});
 
   return {
-    analyzer: toSelectOption(analyzer),
+    analyzer: _.castArray(toSelectOption(analyzer)),
     char_filter: toSelectOption(char_filter),
     filter: toSelectOption(filter),
-    tokenizer: toSelectOption(tokenizer),
+    tokenizer: _.castArray(toSelectOption(tokenizer)),
   };
 }

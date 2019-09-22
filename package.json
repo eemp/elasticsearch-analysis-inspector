@@ -4,20 +4,19 @@
   "private": true,
   "homepage": "https://eemp.io/elasticsearch-analysis-inspector",
   "dependencies": {
-    "@material-ui/core": "^4.2.1",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.2.1",
+    "@elastic/datemath": "^5.0.2",
+    "@elastic/eui": "^14.2.0",
     "axios": "^0.19.0",
     "bluebird": "^3.5.5",
     "classnames": "^2.2.6",
     "inflection": "^1.12.0",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "monaco-editor": "^0.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-monaco-editor": "^0.30.1",
     "react-scripts": "3.0.1",
-    "react-select": "^3.0.4",
     "uuid": "^3.3.3"
   },
   "scripts": {

@@ -2,33 +2,15 @@ import _ from 'lodash';
 import React from 'react';
 import uuid from 'uuid/v4';
 
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import '@elastic/eui/dist/eui_theme_light.css';
+
+import { EuiButton, EuiFieldText, EuiFlexGrid, EuiFlexGroup, EuiFlexItem, EuiPage, EuiPageBody, EuiSpacer } from '@elastic/eui';
 
 import Analysis, { EDIT_MODE } from './Analysis';
 import AppBar from './AppBar';
-import theme from './theme';
 import updateAnalyses from './services/analyze';
 
 import { analyses, sampleText } from './sample-data';
-
-const useStyles = makeStyles(theme => ({
-  app: {
-    backgroundColor: '#fbfbfb',
-    minHeight: '100vh',
-  },
-  chip: {
-    margin: theme.spacing(1),
-  },
-  section: {
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(4),
-  },
-}));
 
 class App extends React.Component {
   constructor(props) {
@@ -92,65 +74,59 @@ class App extends React.Component {
   }
 
   render() {
-    const { classes: styles } = this.props;
     const { analyses, selectedStartOffset, text } = this.state;
 
     return (
-      <ThemeProvider theme={theme}>
-        <div className={styles.app}>
-          <AppBar />
-          <Grid container>
-            <Grid item xs={12}>
-              <Container className={styles.section}>
-                <TextField
-                  defaultValue={text}
-                  fullWidth
-                  label="Text"
-                  onChange={
-                    ev => {
-                      const text = ev.target.value;
-                      ev.persist();
-                      this.setState({text}, this.onChange);
+      <React.Fragment>
+        <AppBar />
+        <EuiPage style={{ backgroundColor: '#fbfbfb', marginTop: 20, minHeight: 'calc(100vh-50px)' }}>
+          <EuiPageBody restrictWidth>
+            <EuiFlexGrid direction="column">
+              <EuiFlexGroup>
+                <EuiFlexItem>
+                  <EuiFieldText
+                    fullWidth
+                    prepend="Text"
+                    onChange={
+                      ev => {
+                        const text = ev.target.value;
+                        ev.persist();
+                        this.setState({text}, this.onChange);
+                      }
                     }
-                  }
-                  variant="outlined"
-                />
-              </Container>
-            </Grid>
-            <Grid item xs={12}>
-              <Container>
-                <Button variant="contained" color="secondary" onClick={this.onAdd} style={{float: 'right'}}>New Analyzer</Button>
-              </Container>
-            </Grid>
-            <Grid item xs={12}>
-              <Container>
-                {
-                  _.map(analyses, analysis => (
-                    <Analysis
-                      {...analysis}
-                      className={styles.section}
-                      key={analysis.key}
-                      onClose={this.createCloseFn(analysis.key)}
-                      onTokenSelect={this.onTokenSelect}
-                      selectedStartOffset={selectedStartOffset}
-                      text={text}
-                    />
-                  ))
-                }
-              </Container>
-            </Grid>
-          </Grid>
-        </div>
-      </ThemeProvider>
+                    value={text}
+                  />
+                </EuiFlexItem>
+              </EuiFlexGroup>
+              <EuiSpacer />
+              <EuiFlexGroup justifyContent="flexEnd">
+                <EuiFlexItem grow={false}>
+                  <EuiButton iconType="plusInCircle" onClick={this.onAdd} style={{float: 'right'}}>New Analysis</EuiButton>
+                </EuiFlexItem>
+              </EuiFlexGroup>
+              <EuiSpacer />
+              {
+                _.map(analyses, analysis => (
+                  <EuiFlexGroup>
+                    <EuiFlexItem>
+                      <Analysis
+                        {...analysis}
+                        key={analysis.key}
+                        onClose={this.createCloseFn(analysis.key)}
+                        onTokenSelect={this.onTokenSelect}
+                        selectedStartOffset={selectedStartOffset}
+                        text={text}
+                      />
+                    </EuiFlexItem>
+                  </EuiFlexGroup>
+                ))
+              }
+            </EuiFlexGrid>
+          </EuiPageBody>
+        </EuiPage>
+      </React.Fragment>
     );
   }
 }
 
-function withStyles() {
-  return props => {
-    const styles = useStyles();
-    return <App classes={styles} {...props} />;
-  };
-}
-
-export default withStyles(App);
+export default App;

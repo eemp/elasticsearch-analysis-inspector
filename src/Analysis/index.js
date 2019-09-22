@@ -1,29 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
 
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Chip from '@material-ui/core/Chip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DoneIcon from '@material-ui/icons/Done';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import { EuiButtonIcon, EuiBadge, EuiFlexGroup, EuiFlexItem, EuiLink, EuiPanel, EuiFieldText, EuiTitle } from '@elastic/eui';
 
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
 import Editor from './Editor';
 import { updateAnalysis } from '../services/analyze';
-
-const useStyles = makeStyles(theme => ({
-  chip: {
-    margin: theme.spacing(1),
-  },
-}));
 
 export const EDIT_MODE = 'edit';
 export const VISUAL_MODE = 'visual';
@@ -49,7 +31,7 @@ class Analysis extends React.Component {
 
   onChange() {
     const { onChange } = this.props;
-    const updatedDefinition = JSON.parse(this.refs.editor.refs.monaco.editor.getValue());
+    const updatedDefinition = this.refs.editor.getValue();
     this.setState({
       mode: VISUAL_MODE,
       name: this.nameField.value,
@@ -66,42 +48,49 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { className, definition, description, onClose } = this.props;
+    const { definition, description, onClose } = this.props;
     const { name } = this.state;
     return (
-      <Card className={className}>
-        <CardHeader
-          action={
-            <CardActions disableSpacing>
-              {
-                this.inEditMode()
-                  ? <IconButton onClick={this.onChange}>
-                    <DoneIcon />
-                  </IconButton>
-                  : <IconButton onClick={this.onEdit}>
-                    <EditIcon />
-                  </IconButton>
-              }
-              <IconButton onClick={onClose}>
-                <DeleteIcon />
-              </IconButton>
-            </CardActions>
-          }
-          subheader={!this.inEditMode() && description}
-          title={
-            this.inEditMode()
-              ? <TextField inputRef={ref => this.nameField = ref} defaultValue={name} />
-              : name
-          }
-        />
-        <CardContent>
-          {
-            this.inEditMode()
-              ? <Editor content={definition} ref="editor" />
-              : <TokenChips {...this.props} />
-          }
-        </CardContent>
-      </Card>
+      <EuiPanel>
+        <EuiFlexGroup responsive={false}>
+          <EuiFlexItem grow={true}>
+            {
+              this.inEditMode()
+                ? <EuiFieldText
+                  defaultValue={name}
+                  inputRef={ref => this.nameField = ref}
+                  prepend="Analysis Name"
+                  style={{ marginBottom: 10 }}
+                />
+                : <EuiTitle><h3>{name}</h3></EuiTitle>
+            }
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiFlexGroup responsive={false}>
+              <EuiFlexItem>
+                {
+                  this.inEditMode()
+                    ? <EuiButtonIcon onClick={this.onChange} iconType="check"/>
+                    : <EuiButtonIcon onClick={this.onEdit} iconType="pencil"/>
+                }
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiButtonIcon onClick={onClose} iconType="trash"/>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+        {
+          !this.inEditMode()
+            ? <p>{description}</p>
+            : null
+        }
+        {
+          this.inEditMode()
+            ? <Editor content={definition} ref="editor" />
+            : <TokenChips {...this.props} />
+        }
+      </EuiPanel>
     );
   }
 }
@@ -174,21 +163,20 @@ export default withLiveAnalyze(Analysis);
 
 const TokenChips = (props) => {
   const { onTokenSelect, selectedStartOffset, tokens } = props;
-  const styles = useStyles();
   const chips = _.map(tokens, (tokenDetails, idx) => (
-    <Chip
-      avatar={<Avatar>{tokenDetails.start_offset}</Avatar>}
-      className={styles.chip}
-      color={selectedStartOffset === tokenDetails.start_offset ? 'primary' : undefined}
+    <EuiBadge
+      color={selectedStartOffset === tokenDetails.start_offset ? 'primary' : 'default'}
       key={`${tokenDetails.start_offset}-${idx}`}
-      label={tokenDetails.token}
       onClick={() => onTokenSelect(tokenDetails.start_offset)}
-    />
+      style={{ margin: 5 }}
+    >
+      {`${tokenDetails.start_offset} | ${tokenDetails.token}`}
+    </EuiBadge>
   ));
   return (
-    <React.Fragment>
+    <div style={{ marginTop: 24 }}>
       {chips}
-    </React.Fragment>
+    </div>
   );
 };
 
@@ -232,7 +220,7 @@ function DocsLink(props) {
   const elasticDocsUrl = getDocsPage(type, analysisAspectLabel);
 
   return (
-    <Link color="secondary" href={elasticDocsUrl} target="_blank">{analysisAspectLabel}</Link>
+    <EuiLink color="secondary" href={elasticDocsUrl} target="_blank">{analysisAspectLabel}</EuiLink>
   );
 }
 
