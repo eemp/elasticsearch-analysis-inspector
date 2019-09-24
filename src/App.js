@@ -82,7 +82,7 @@ class App extends React.Component {
         <EuiPage style={{ backgroundColor: '#fbfbfb', marginTop: 20, minHeight: 'calc(100vh-50px)' }}>
           <EuiPageBody restrictWidth>
             <EuiFlexGrid direction="column">
-              <EuiFlexGroup>
+              <EuiFlexGroup key="text-sample">
                 <EuiFlexItem>
                   <EuiFieldText
                     fullWidth
@@ -99,7 +99,7 @@ class App extends React.Component {
                 </EuiFlexItem>
               </EuiFlexGroup>
               <EuiSpacer />
-              <EuiFlexGroup justifyContent="flexEnd">
+              <EuiFlexGroup justifyContent="flexEnd" key="new-analysis">
                 <EuiFlexItem grow={false}>
                   <EuiButton iconType="plusInCircle" onClick={this.onAdd} style={{float: 'right'}}>New Analysis</EuiButton>
                 </EuiFlexItem>
@@ -107,7 +107,7 @@ class App extends React.Component {
               <EuiSpacer />
               {
                 _.map(analyses, analysis => (
-                  <EuiFlexGroup>
+                  <EuiFlexGroup key={analysis.key}>
                     <EuiFlexItem>
                       <Analysis
                         {...analysis}

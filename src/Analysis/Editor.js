@@ -3,7 +3,7 @@ import inflection from 'inflection';
 import MonacoEditor from 'react-monaco-editor';
 import React from 'react';
 
-import { EuiComboBox, EuiForm, EuiFormRow, EuiSpacer, EuiTabbedContent } from '@elastic/eui';
+import { EuiComboBox, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiIcon, EuiSpacer, EuiTabbedContent } from '@elastic/eui';
 
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
 
@@ -85,22 +85,13 @@ class Editor extends React.Component {
 
     const tabs = [
       {
-        id: 'code',
-        name: 'Code',
-        content: (
-          <MonacoEditor
-            defaultValue={editorContent}
-            editorWillMount={this.editorWillMount}
-            height={200}
-            language="json"
-            ref="monaco"
-            theme="vs-dark"
-          />
-        ),
-      },
-      {
         id: 'form',
-        name: 'Form',
+        name: (
+          <EuiFlexGroup alignItems="center" direction="column" gutterSize="s">
+            { /* <EuiFlexItem>Form</EuiFlexItem> */ }
+            <EuiFlexItem><EuiIcon type="documentEdit" /></EuiFlexItem>
+          </EuiFlexGroup>
+        ),
         content: (
           <EuiForm style={{paddingTop: 20, paddingBottom: 40}}>
             <EuiFormRow fullWidth label="Analyzer">
@@ -146,13 +137,31 @@ class Editor extends React.Component {
             </div>
           </EuiForm>
         ),
-      }
+      },
+      {
+        id: 'code',
+        name: (
+          <EuiFlexGroup alignItems="center" direction="column" gutterSize="s">
+            { /* <EuiFlexItem>Code</EuiFlexItem> */ }
+            <EuiFlexItem><EuiIcon type="editorCodeBlock" /></EuiFlexItem>
+          </EuiFlexGroup>
+        ),
+        content: (
+          <MonacoEditor
+            defaultValue={editorContent}
+            editorWillMount={this.editorWillMount}
+            height={200}
+            language="json"
+            ref="monaco"
+            theme="vs-dark"
+          />
+        ),
+      },
     ];
 
     return (
       <EuiTabbedContent
         tabs={tabs}
-        initialSelectedTab={tabs[1]}
         onTabClick={this.onTabChange}
       />
     );

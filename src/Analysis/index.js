@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
 
-import { EuiButtonIcon, EuiBadge, EuiFlexGroup, EuiFlexItem, EuiLink, EuiPanel, EuiFieldText, EuiTitle } from '@elastic/eui';
+import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiLink, EuiPanel, EuiFieldText, EuiTitle } from '@elastic/eui';
 
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
 import Editor from './Editor';
+import TokenList from './TokenList';
 import { updateAnalysis } from '../services/analyze';
 
 export const EDIT_MODE = 'edit';
@@ -52,7 +53,7 @@ class Analysis extends React.Component {
     const { name } = this.state;
     return (
       <EuiPanel>
-        <EuiFlexGroup responsive={false}>
+        <EuiFlexGroup responsive={false} style={{ marginBottom: 10 }}>
           <EuiFlexItem grow={true}>
             {
               this.inEditMode()
@@ -60,7 +61,6 @@ class Analysis extends React.Component {
                   defaultValue={name}
                   inputRef={ref => this.nameField = ref}
                   prepend="Analysis Name"
-                  style={{ marginBottom: 10 }}
                 />
                 : <EuiTitle><h3>{name}</h3></EuiTitle>
             }
@@ -70,12 +70,12 @@ class Analysis extends React.Component {
               <EuiFlexItem>
                 {
                   this.inEditMode()
-                    ? <EuiButtonIcon onClick={this.onChange} iconType="check"/>
-                    : <EuiButtonIcon onClick={this.onEdit} iconType="pencil"/>
+                    ? <EuiButtonIcon aria-label="confirm" iconType="check" onClick={this.onChange} />
+                    : <EuiButtonIcon aria-label="edit" iconType="pencil" onClick={this.onEdit} />
                 }
               </EuiFlexItem>
               <EuiFlexItem>
-                <EuiButtonIcon onClick={onClose} iconType="trash"/>
+                <EuiButtonIcon aria-label="close" onClick={onClose} iconType="trash"/>
               </EuiFlexItem>
             </EuiFlexGroup>
           </EuiFlexItem>
@@ -88,7 +88,7 @@ class Analysis extends React.Component {
         {
           this.inEditMode()
             ? <Editor content={definition} ref="editor" />
-            : <TokenChips {...this.props} />
+            : <TokenList {...this.props} />
         }
       </EuiPanel>
     );
@@ -160,25 +160,6 @@ function withLiveAnalyze(Component) {
 }
 
 export default withLiveAnalyze(Analysis);
-
-const TokenChips = (props) => {
-  const { onTokenSelect, selectedStartOffset, tokens } = props;
-  const chips = _.map(tokens, (tokenDetails, idx) => (
-    <EuiBadge
-      color={selectedStartOffset === tokenDetails.start_offset ? 'primary' : 'default'}
-      key={`${tokenDetails.start_offset}-${idx}`}
-      onClick={() => onTokenSelect(tokenDetails.start_offset)}
-      style={{ margin: 5 }}
-    >
-      {`${tokenDetails.start_offset} | ${tokenDetails.token}`}
-    </EuiBadge>
-  ));
-  return (
-    <div style={{ marginTop: 24 }}>
-      {chips}
-    </div>
-  );
-};
 
 function AnalysisDescription(props) {
   const { analyzer, char_filter:charFilter, filter, tokenizer } = props;
