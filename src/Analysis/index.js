@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiFieldText, EuiTitle } from '@elastic/eui';
+import { EuiButtonIcon, EuiDelayRender, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiProgress, EuiFieldText, EuiTitle } from '@elastic/eui';
 
 import Description from './Description';
 import Editor from './Editor';
@@ -49,10 +49,17 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { definition, description, onClose } = this.props;
+    const { definition, description, loading, onClose } = this.props;
     const { name } = this.state;
     return (
-      <EuiPanel>
+      <EuiPanel style={{ position: 'relative' }}>
+        {
+          loading && (
+            <EuiDelayRender>
+              <EuiProgress color="subdued" position="absolute" size="xs" />
+            </EuiDelayRender>
+          )
+        }
         <EuiFlexGroup responsive={false} style={{ marginBottom: 10 }}>
           <EuiFlexItem grow={true}>
             {
@@ -134,21 +141,27 @@ function withLiveAnalyze(Component) {
       const { text } = this.props;
       const { definition } = this.state;
 
+      this.setState({ loading: true });
       updateAnalysis({ definition }, text).then(({ tokens }) => {
         this.setState({
           description: <Description {...definition} />,
+          loading: false,
           tokens,
         });
+      }).catch(err => {
+        console.warn('Probably running analysis: ', err);
+        this.setState({ loading: false });
       });
     }
 
     render() {
-      const { definition, description, tokens } = this.state;
+      const { definition, description, loading, tokens } = this.state;
       return (
         <Component
           {...this.props}
           definition={definition}
           description={description}
+          loading={loading}
           onChange={this.onChange}
           tokens={tokens}
         />
