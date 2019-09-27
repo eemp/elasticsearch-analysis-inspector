@@ -65,19 +65,21 @@ class Editor extends React.Component {
   }
 
   getValue() {
-    const { analyzer, char_filter, filter, tokenizer } = this.state;
-    return {
-      analyzer: _.get(analyzer, '0.value') !== 'custom'
-        ? _.get(analyzer, '0.value')
-        : undefined,
-      char_filter: char_filter
-        ? char_filter.map(option => option.value)
-        : undefined,
-      filter: filter
-        ? filter.map(option => option.value)
-        : undefined,
-      tokenizer: _.get(tokenizer, '0.value'),
-    };
+    const { analyzer, char_filter, filter, selectedTab, tokenizer } = this.state;
+    return selectedTab.id === 'code'
+      ? JSON.parse(this.refs.monaco.editor.getValue())
+      : {
+        analyzer: _.get(analyzer, '0.value') !== 'custom'
+          ? _.get(analyzer, '0.value')
+          : undefined,
+        char_filter: char_filter
+          ? char_filter.map(option => option.value)
+          : undefined,
+        filter: filter
+          ? filter.map(option => option.value)
+          : undefined,
+        tokenizer: _.get(tokenizer, '0.value'),
+      };
   }
 
   render() {
