@@ -66,7 +66,7 @@ class Editor extends React.Component {
 
   getValue() {
     const { analyzer, char_filter, filter, selectedTab, tokenizer } = this.state;
-    return selectedTab.id === 'code'
+    return _.get(selectedTab, 'id') === 'code'
       ? JSON.parse(this.refs.monaco.editor.getValue())
       : {
         analyzer: _.get(analyzer, '0.value') !== 'custom'
