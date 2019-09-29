@@ -14,16 +14,6 @@ const analyses = [
     key: uuid(),
   },
   {
-    //mode: 'edit',
-    name: 'General Content Analyzer w/ Snowball',
-    definition: {
-      tokenizer: 'standard',
-      char_filter: [ 'html_strip' ],
-      filter: [ 'asciifolding', 'lowercase', 'stop', 'snowball' ],
-    },
-    key: uuid(),
-  },
-  {
     name: 'Content Analyzer w/ Shingles (bigrams + trigrams)',
     definition: {
       tokenizer: 'standard',

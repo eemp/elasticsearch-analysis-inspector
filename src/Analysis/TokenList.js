@@ -18,9 +18,9 @@ const TokenList = (props) => {
     </EuiBadge>
   ));
   return (
-    <div style={{ marginTop: 24 }}>
+    <React.Fragment>
       {chips}
-    </div>
+    </React.Fragment>
   );
 };
 

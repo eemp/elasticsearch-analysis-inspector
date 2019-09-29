@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import uuid from 'uuid/v4';
+import { Provider } from 'react-redux';
 
 import '@elastic/eui/dist/eui_theme_light.css';
 
@@ -8,6 +9,8 @@ import { EuiButton, EuiFieldText, EuiFlexGrid, EuiFlexGroup, EuiFlexItem, EuiPag
 
 import Analysis, { EDIT_MODE } from './Analysis';
 import AppBar from './AppBar';
+import AppFlyout from './Flyout';
+import configureStore from './store';
 import updateAnalyses from './services/analyze';
 
 import { analyses, sampleText } from './sample-data';
@@ -124,9 +127,20 @@ class App extends React.Component {
             </EuiFlexGrid>
           </EuiPageBody>
         </EuiPage>
+        <AppFlyout />
       </React.Fragment>
     );
   }
 }
 
-export default App;
+function withStore(App) {
+  const store = configureStore();
+
+  return props => (
+    <Provider store={store}>
+      <App {...props} />
+    </Provider>
+  );
+}
+
+export default withStore(App);

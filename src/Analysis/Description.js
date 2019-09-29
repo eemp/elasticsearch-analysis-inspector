@@ -1,9 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import { EuiLink } from '@elastic/eui';
-
-import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
+import DocsLink from './DocsLink';
 
 function AnalysisDescription(props) {
   const { analyzer, char_filter:charFilter, filter, tokenizer } = props;
@@ -41,31 +39,7 @@ function AnalysisAspectDescription(props) {
   );
 }
 
-function DocsLink(props) {
-  const { analysisAspect, type } = props;
-  const analysisAspectLabel = analysisAspect.type || analysisAspect;
-  const elasticDocsUrl = getDocsPage(type, analysisAspectLabel);
-
-  return (
-    <EuiLink color="secondary" href={elasticDocsUrl} target="_blank">{analysisAspectLabel}</EuiLink>
-  );
-}
-
 function commaSeparate(elementList) {
   return _.flatMap(elementList, (element, idx) => elementList.length - 1 !== idx ? [ element, ', ' ] : element);
 }
 
-function getDocsPage(type, analysisAspect) {
-  const docsByType = {
-    analyzer: ANALYZERS,
-    charfilter: CHAR_FILTERS,
-    tokenfilter: TOKEN_FILTERS,
-    tokenizer: TOKENIZERS,
-  };
-  const docs = docsByType[type];
-
-  return _.get(
-    _.find(docs, doc => doc.value === analysisAspect),
-    'link'
-  );
-}

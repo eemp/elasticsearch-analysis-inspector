@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import { EuiButtonIcon, EuiDelayRender, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiProgress, EuiFieldText, EuiTitle } from '@elastic/eui';
+import { EuiButtonIcon, EuiDelayRender, EuiFlexGroup, EuiFlexItem, EuiLoadingContent, EuiPanel, EuiProgress, EuiFieldText, EuiTitle } from '@elastic/eui';
 
 import Description from './Description';
 import Editor from './Editor';
@@ -92,11 +92,15 @@ class Analysis extends React.Component {
             ? <p>{description}</p>
             : null
         }
-        {
-          this.inEditMode()
-            ? <Editor content={definition} ref="editor" />
-            : <TokenList {...this.props} />
-        }
+        <div style={{ marginTop: 24 }}>
+          {
+            loading
+              ? <EuiLoadingContent lines={2} />
+              : this.inEditMode()
+                ? <Editor content={definition} ref="editor" />
+                : <TokenList {...this.props} />
+          }
+        </div>
       </EuiPanel>
     );
   }
@@ -141,10 +145,12 @@ function withLiveAnalyze(Component) {
       const { text } = this.props;
       const { definition } = this.state;
 
-      this.setState({ loading: true });
+      this.setState({
+        description: <Description {...definition} />,
+        loading: true,
+      });
       updateAnalysis({ definition }, text).then(({ tokens }) => {
         this.setState({
-          description: <Description {...definition} />,
           loading: false,
           tokens,
         });
