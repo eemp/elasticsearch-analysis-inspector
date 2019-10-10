@@ -5,7 +5,7 @@ import React from 'react';
 
 import { EuiComboBox, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiIcon, EuiSpacer, EuiTabbedContent } from '@elastic/eui';
 
-import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
+import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from '../analyzers';
 
 const ANALYZER_OPTIONS = _.map(ANALYZERS, 'value').map(toSelectOption);
 const CHAR_FILTER_OPTIONS = _.map(CHAR_FILTERS, 'value').map(toSelectOption);

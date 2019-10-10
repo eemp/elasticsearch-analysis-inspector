@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 
 import { EuiLink } from '@elastic/eui';
 
-import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from './analyzers';
-import { openDocsFlyout } from './actions';
+import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from '../analyzers';
+import { openDocsFlyout } from '../actions';
 
 const asciidoctorInstance = asciidoctor();
 const renderAsciidoc = asciidoctorInstance.convert.bind(asciidoctorInstance);

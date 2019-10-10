@@ -1,6 +1,6 @@
 import uuid from 'uuid/v4';
 
-const sampleText = '<p>The quick brown fox jumps over the quick dog.</p>';
+const sampleText = '<p>The quick brown fox jumps over the lazy dog.</p>';
 
 const analyses = [
   {
