@@ -1,15 +1,25 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { showInfo } from './actions';
 
 import {
   EuiHeader,
   EuiHeaderLink,
   EuiHeaderSection,
   EuiHeaderSectionItem,
+  EuiHeaderSectionItemButton,
   EuiHeaderLogo,
   EuiIcon,
 } from '@elastic/eui';
 
-export default function CustomAppBar() {
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ showInfo }, dispatch);
+}
+
+function CustomAppBar(props) {
+  const { showInfo } = props;
   return (
     <React.Fragment>
       <EuiHeader>
@@ -24,8 +34,15 @@ export default function CustomAppBar() {
               <EuiIcon type="logoGithub" size="l"/>
             </EuiHeaderLink>
           </EuiHeaderSectionItem>
+          <EuiHeaderSectionItem border="none">
+            <EuiHeaderSectionItemButton onClick={showInfo}>
+              <EuiIcon type="iInCircle" size="l"/>
+            </EuiHeaderSectionItemButton>
+          </EuiHeaderSectionItem>
         </EuiHeaderSection>
       </EuiHeader>
     </React.Fragment>
   );
 }
+
+export default connect(null, mapDispatchToProps)(CustomAppBar);

@@ -14,6 +14,7 @@
     "inflection": "^1.12.0",
     "jsonpack": "^1.1.5",
     "lodash": "^4.17.15",
+    "marked": "^0.7.0",
     "moment": "^2.24.0",
     "monaco-editor": "^0.17.1",
     "react": "^16.8.6",
@@ -29,12 +30,13 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "build:changelog": "auto-changelog -p --template changelog-template.hbs",
     "deploy": "gh-pages -d build",
     "predeploy": "npm run build",
     "release": "npm version",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "version": "auto-changelog -p && git add CHANGELOG.md"
+    "version": "npm run build:changelog && git add CHANGELOG.md"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,5 +56,8 @@
   "devDependencies": {
     "auto-changelog": "^1.16.1",
     "gh-pages": "^2.1.1"
+  },
+  "auto-changelog": {
+    "commitLimit": false
   }
 }
