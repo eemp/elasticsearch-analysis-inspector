@@ -18,9 +18,10 @@ const mapLocationToState = (state, location) => {
     : state;
 };
 const overwriteLocationHandling = (initialState, nextState, location) => {
+  const OMITTED_STATE_PROPS = ['flyoutReducer'];
   return {
     location: _.assign({}, location, {
-      search: `?q=${compress(nextState)}`,
+      search: `?q=${compress(_.omit(nextState, OMITTED_STATE_PROPS))}`,
       shouldPush: true,
     }),
   };
