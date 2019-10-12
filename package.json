@@ -31,9 +31,10 @@
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "predeploy": "npm run build",
+    "release": "npm version",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "version": "auto-changelog-p && git add CHANGELOG.md"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "auto-changelog": "^1.16.1",
     "gh-pages": "^2.1.1"
   }
 }
