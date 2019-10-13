@@ -47,9 +47,9 @@ export default function configureStore(preloadedState) {
 }
 
 function compress(state) {
-  return jsonpack.pack(state);
+  return encodeURIComponent(jsonpack.pack(state));
 }
 
 function decompress(compressedState) {
-  return jsonpack.unpack(compressedState);
+  return jsonpack.unpack(decodeURIComponent(compressedState));
 }

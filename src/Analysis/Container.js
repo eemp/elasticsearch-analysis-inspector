@@ -8,6 +8,7 @@ import { addAnalysis, removeAnalysis, updateAnalysis } from './actions';
 function mapStateToProps(state) {
   return {
     analyses: _.get(state, 'analysisReducer'),
+    text: _.get(state, 'sampletextReducer'),
   };
 }
 

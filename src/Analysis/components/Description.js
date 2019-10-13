@@ -9,10 +9,10 @@ function AnalysisDescription(props) {
     <React.Fragment>
       {
         commaSeparate(_.compact([
-          analyzer && <AnalysisAspectDescription key="analyzer-desc" type="analyzer" value={analyzer} />,
-          tokenizer && <AnalysisAspectDescription key="tokenizer-desc" type="tokenizer" value={tokenizer} />,
-          charFilter && <AnalysisAspectDescription key="charfilter-desc" type="charfilter" value={charFilter} />,
-          filter && <AnalysisAspectDescription key="tokenfilter-desc" type="tokenfilter" value={filter} />,
+          !_.isEmpty(analyzer) && <AnalysisAspectDescription key="analyzer-desc" type="analyzer" value={analyzer} />,
+          !_.isEmpty(tokenizer) && <AnalysisAspectDescription key="tokenizer-desc" type="tokenizer" value={tokenizer} />,
+          !_.isEmpty(charFilter) && <AnalysisAspectDescription key="charfilter-desc" type="charfilter" value={charFilter} />,
+          !_.isEmpty(filter) && <AnalysisAspectDescription key="tokenfilter-desc" type="tokenfilter" value={filter} />,
         ]))
       }
     </React.Fragment>
@@ -30,9 +30,8 @@ function AnalysisAspectDescription(props) {
     tokenizer: 'Tokenizer',
   };
   const label = labels[type];
-  const renderedValues = commaSeparate(
-    _.castArray(value).map(val => <DocsLink key={val.type || val} type={type} analysisAspect={val} />),
-  );
+  const items = _.castArray(value).map(val => <DocsLink key={val.type || val} type={type} analysisAspect={val} />);
+  const renderedValues = commaSeparate(items);
 
   return (
     <span>{label}: {renderedValues}</span>

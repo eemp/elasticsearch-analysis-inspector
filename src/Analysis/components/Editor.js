@@ -190,13 +190,12 @@ function toFriendlyRep(jsonDef) {
     ? JSON.parse(jsonDef)
     : jsonDef;
 
-  const analyzer = 'custom';
-  const { char_filter, filter, tokenizer } = (def || {});
+  const { analyzer = 'custom', char_filter, filter, tokenizer } = (def || {});
 
   return {
-    analyzer: _.castArray(toSelectOption(analyzer)),
+    analyzer: _.compact(_.castArray(toSelectOption(analyzer))),
     char_filter: toSelectOption(char_filter),
     filter: toSelectOption(filter),
-    tokenizer: _.castArray(toSelectOption(tokenizer)),
+    tokenizer: _.compact(_.castArray(toSelectOption(tokenizer))),
   };
 }
