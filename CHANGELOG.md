@@ -1,6 +1,12 @@
 ### Changelog
 
-#### 2.1.0 on 12 October 2019
+#### [v2.1.1](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.1.0...v2.1.1) on 13 October 2019
+
+##### Fixes
+
+- fix: allow users to include sample text in shared urls [`f25b134`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/f25b134090921df181c871ee87a18e0177b3af84)
+
+#### v2.1.0 on 12 October 2019
 
 ##### Updates
 
