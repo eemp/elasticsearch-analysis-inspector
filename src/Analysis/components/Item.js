@@ -50,7 +50,7 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { definition, description, loading, onClose } = this.props;
+    const { definition, defaultEditor, description, editorTheme, loading, onClose } = this.props;
     const { name } = this.state;
     return (
       <EuiPanel style={{ position: 'relative' }}>
@@ -98,7 +98,7 @@ class Analysis extends React.Component {
             loading
               ? <EuiLoadingContent lines={2} />
               : this.inEditMode()
-                ? <Editor content={definition} ref="editor" />
+                ? <Editor content={definition} ref="editor" defaultEditor={defaultEditor} theme={editorTheme} />
                 : <TokenList {...this.props} />
           }
         </div>

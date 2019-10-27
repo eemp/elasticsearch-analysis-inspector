@@ -8,6 +8,7 @@ import {
 const initialState = {
   content: null,
   open: false,
+  title: null,
 };
 
 export default function FlyoutReducer(state = initialState, action) {
@@ -16,11 +17,13 @@ export default function FlyoutReducer(state = initialState, action) {
       return updateState({
         content: null,
         open: false,
+        title: null,
       });
     case OPEN_FLYOUT:
       return updateState({
-        content: action.payload,
+        content: action.payload.content,
         open: true,
+        title: action.payload.title,
       });
     default:
       return state;
