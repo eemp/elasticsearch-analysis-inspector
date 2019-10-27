@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.2.1](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.2.0...v2.2.1) on 27 October 2019
+
+##### Fixes
+
+- fix: detect invalid JSON errors and notify users using the code editor [`a4c4ef6`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/a4c4ef60189cd660ba15ab4d5ceced62ea104328)
+
 #### [v2.2.0](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.1.1...v2.2.0) on 27 October 2019
 
 ##### Updates
