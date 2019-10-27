@@ -5,8 +5,9 @@ import {
   EuiDescribedFormGroup,
   EuiForm,
   EuiFormRow,
-  EuiSelect
 } from '@elastic/eui';
+
+import EuiSelectField from '../ThemedReduxFormFields/EuiSelect';
 
 const EDITOR_OPTIONS = [
   { text: 'Friendly', value: 'friendly' },
@@ -41,10 +42,3 @@ export default reduxForm({
   form: 'preferences',
   destroyOnUnmount: false,
 })(Preferences);
-
-function EuiSelectField(props) {
-  const { input, label, meta, ...otherProps } = props;
-  return (
-    <EuiSelect {...input} {...otherProps} />
-  );
-}
