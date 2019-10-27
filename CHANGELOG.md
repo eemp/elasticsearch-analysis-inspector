@@ -1,17 +1,27 @@
 ### Changelog
 
-#### [v2.1.1](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.1.0...v2.1.1) on 13 October 2019
+#### [v2.2.0](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.1.1...v2.2.0) on 27 October 2019
+
+##### Updates
+
+- feat: allow users to select preferences, default editor, code editor theme [`3a8ba85`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/3a8ba85e99ef788202890369ad85f3c6ff0732e2)
+- feat: allow users to configure settings, select ES host [`463ab53`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/463ab53917193af20dacfd18a7c11f375e8b3c94)
+
+#### [v2.1.1](https://gitlab.com/eemp/elasticsearch-analysis-inspector/compare/v2.0.0...v2.1.1) on 13 October 2019
+
+##### Updates
+
+- feat: show users info about app from README + CHANGELOG [`67ab1c1`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/67ab1c1b62854760bd6588a2c6d364e97b87a1da)
 
 ##### Fixes
 
 - fix: allow users to include sample text in shared urls [`f25b134`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/f25b134090921df181c871ee87a18e0177b3af84)
 
-#### v2.1.0 on 12 October 2019
+#### v2.0.0 on 12 October 2019
 
 ##### Updates
 
 - feat: add flyouts providing easy access to Elasticsearch documentation [`b410afc`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/b410afc8fde42c88bba07e7655765c9ed0eec4ff)
-- feat: show users info about app from README + CHANGELOG [`67ab1c1`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/67ab1c1b62854760bd6588a2c6d364e97b87a1da)
 - feat: track app state in url query strings to allow sharing urls [`ffb51bd`](https://gitlab.com/eemp/elasticsearch-analysis-inspector/commit/ffb51bdb73cfe2dd53656e930f81ef9e1329ae6f)
 
 ##### Fixes
