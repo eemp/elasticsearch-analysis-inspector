@@ -59,6 +59,7 @@
     "gh-pages": "^2.1.1"
   },
   "auto-changelog": {
-    "commitLimit": false
+    "commitLimit": false,
+    "remote": "github"
   }
 }
