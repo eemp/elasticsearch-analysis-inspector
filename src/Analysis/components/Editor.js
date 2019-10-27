@@ -3,7 +3,7 @@ import inflection from 'inflection';
 import MonacoEditor from 'react-monaco-editor';
 import React from 'react';
 
-import { EuiComboBox, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiIcon, EuiSpacer, EuiTabbedContent } from '@elastic/eui';
+import { EuiComboBox, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiIcon, EuiSpacer, EuiTabbedContent, EuiTextColor } from '@elastic/eui';
 
 import ANALYZERS, { CHAR_FILTERS, TOKEN_FILTERS, TOKENIZERS } from '../analyzers';
 
@@ -18,6 +18,7 @@ class Editor extends React.Component {
     this.editorWillMount = this.editorWillMount.bind(this);
     this.onAnalyzerChange = this.onDefinitionChange.bind(this, 'analyzer');
     this.onCharFilterChange = this.onDefinitionChange.bind(this, 'char_filter');
+    this.onCodeEditorChange = _.debounce(this.onCodeEditorChange.bind(this), 800);
     this.onTabChange = this.onTabChange.bind(this);
     this.onTokenizerChange = this.onDefinitionChange.bind(this, 'tokenizer');
     this.onTokenFilterChange = this.onDefinitionChange.bind(this, 'filter');
@@ -54,6 +55,20 @@ class Editor extends React.Component {
     });
   }
 
+  onCodeEditorChange(codeEditorValue) {
+    const err = this.validateCodeEditorValue(codeEditorValue);
+    this.setState({
+      validation: {
+        codeEditor: err,
+      }
+    });
+  }
+
+  validateCodeEditorValue(codeEditorValue) {
+    const possibleErr = _.attempt(JSON.parse.bind(null, codeEditorValue));
+    return _.isError(possibleErr) && possibleErr;
+  }
+
   onTabChange(selectedTab) {
     this.setState({ selectedTab });
     if(selectedTab.id !== 'code') {
@@ -84,7 +99,8 @@ class Editor extends React.Component {
 
   render() {
     const { defaultEditor, theme } = this.props;
-    const { analyzer, char_filter, editorContent, filter, tokenizer } = this.state;
+    const { analyzer, char_filter, editorContent, filter, tokenizer, validation } = this.state;
+    const codeEditorError = _.get(validation, 'codeEditor');
 
     const tabs = [
       {
@@ -150,14 +166,22 @@ class Editor extends React.Component {
           </EuiFlexGroup>
         ),
         content: (
-          <MonacoEditor
-            defaultValue={editorContent}
-            editorWillMount={this.editorWillMount}
-            height={200}
-            language="json"
-            ref="monaco"
-            theme={theme}
-          />
+          <React.Fragment>
+            <MonacoEditor
+              defaultValue={editorContent}
+              editorWillMount={this.editorWillMount}
+              height={200}
+              language="json"
+              onChange={this.onCodeEditorChange}
+              ref="monaco"
+              theme={theme}
+            />
+            {
+              codeEditorError ? (
+                <EuiTextColor color="danger">Invalid JSON provided</EuiTextColor>
+              ) : null
+            }
+          </React.Fragment>
         ),
       },
     ];
