@@ -83,6 +83,7 @@ class Editor extends React.Component {
   }
 
   render() {
+    const { defaultEditor, theme } = this.props;
     const { analyzer, char_filter, editorContent, filter, tokenizer } = this.state;
 
     const tabs = [
@@ -155,7 +156,7 @@ class Editor extends React.Component {
             height={200}
             language="json"
             ref="monaco"
-            theme="vs-dark"
+            theme={theme}
           />
         ),
       },
@@ -163,6 +164,7 @@ class Editor extends React.Component {
 
     return (
       <EuiTabbedContent
+        initialSelectedTab={defaultEditor === 'code' ? tabs[1] : tabs[0]}
         tabs={tabs}
         onTabClick={this.onTabChange}
       />

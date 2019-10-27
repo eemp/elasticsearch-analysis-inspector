@@ -6,7 +6,7 @@ import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer } from '@elastic/eui';
 import Analysis from './Item';
 
 export default function AnalysisList(props) {
-  const { analyses, addAnalysis, removeAnalysis, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
+  const { analyses, addAnalysis, defaultEditor, editorTheme, removeAnalysis, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
   return (
     <React.Fragment>
       <EuiFlexGroup justifyContent="flexEnd" key="new-analysis">
@@ -22,6 +22,8 @@ export default function AnalysisList(props) {
               <Analysis
                 {...analysis}
                 analysisId={analysis.key}
+                defaultEditor={defaultEditor}
+                editorTheme={editorTheme}
                 key={analysis.key}
                 onChange={updateAnalysis}
                 onClose={() => removeAnalysis(analysis.key)}

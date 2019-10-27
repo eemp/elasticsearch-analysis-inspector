@@ -9,6 +9,7 @@ import AnalysisList from './Analysis';
 import AppBar from './AppBar';
 import AppFlyout from './Flyout';
 import configureStore from './store';
+import NavDrawer from './NavDrawer';
 import SampleText from './SampleText';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <AppBar />
+        <NavDrawer />
         <EuiPage style={{ backgroundColor: '#fbfbfb', marginTop: 20, minHeight: 'calc(100vh-50px)' }}>
           <EuiPageBody restrictWidth>
             <EuiFlexGrid direction="column">

@@ -23,6 +23,7 @@
     "react-redux": "^7.1.1",
     "react-scripts": "3.0.1",
     "redux-devtools-extension": "^2.13.8",
+    "redux-form": "^8.2.6",
     "redux-location-state": "^2.5.2",
     "redux-thunk": "^2.3.0",
     "url-join": "^4.0.1",

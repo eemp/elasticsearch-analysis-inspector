@@ -3,6 +3,14 @@ import React from 'react';
 
 import { EuiDelayRender, EuiFlyout, EuiFlyoutHeader, EuiFlyoutBody, EuiLoadingContent, EuiText, EuiTitle } from '@elastic/eui';
 
+import Preferences from '../Preferences';
+import Settings from '../Settings';
+
+const flyouts = {
+  Preferences,
+  Settings,
+};
+
 function withFlyoutContent(FlyoutComponent) {
   class FlyoutComponentWithContent extends React.Component {
     constructor(props) {
@@ -39,6 +47,9 @@ function withFlyoutContent(FlyoutComponent) {
         })
         .then(() => this.setState({ loading: false }));
       }
+      else {
+        this.setState({ content });
+      }
     }
 
     render() {
@@ -58,13 +69,15 @@ function withFlyoutContent(FlyoutComponent) {
 
 function Flyout(props) {
   const { closeFlyout, content = null, loading, open, title = null } = props;
+  const FlyoutContentComponent = flyouts[content];
+
   return open ? (
     <EuiFlyout onClose={closeFlyout} ownFocus>
       {
         title && (
           <EuiFlyoutHeader hasBorder>
             <EuiTitle size="m">
-              <h2>Title</h2>
+              <h3>{title}</h3>
             </EuiTitle>
           </EuiFlyoutHeader>
         )
@@ -78,9 +91,11 @@ function Flyout(props) {
               </EuiDelayRender>
             )
             : (
-              <EuiText>
-                <div dangerouslySetInnerHTML={{ __html: content }} />
-              </EuiText>
+              flyouts[content] ? <FlyoutContentComponent /> : (
+                <EuiText>
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                </EuiText>
+              )
             )
         }
       </EuiFlyoutBody>

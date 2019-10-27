@@ -3,11 +3,16 @@ import marked from 'marked';
 import request from 'axios';
 import { openFlyout } from '../Flyout/actions';
 
-export function showInfo() {
+function showInfo() {
   return openFlyout({
     content: getInfoContent(),
   });
 }
+
+export {
+  openFlyout,
+  showInfo,
+};
 
 function getInfoContent() {
   return Promise.all([
@@ -33,6 +38,6 @@ function getChangelogContent() {
   return markdownURLtoHTML(CHANGELOG_URL);
 }
 
-function combineContent(...args) {
+function combineContent(args) {
   return _.reduce(args, (acc, arg) => acc + arg);
 }
