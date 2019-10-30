@@ -1,12 +1,30 @@
 import _ from 'lodash';
 import createBrowserHistory from 'history/createBrowserHistory';
 import jsonpack from 'jsonpack';
+import persistState from 'redux-localstorage';
 import thunkMiddleware from 'redux-thunk';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createReduxLocationActions, listenForHistoryChange } from 'redux-location-state';
 
 import rootReducer from './reducers';
+
+const REDUX_LOCALSTORAGE_PATHS = [
+  'form.preferences.values',
+  'form.settings.values',
+];
+const REDUX_LOCALSTORAGE_CONFIG = {
+  key: 'elasticsearch-analysis-inspector/preferences',
+  merge: (initialState, persistedState) => _.merge({}, initialState, persistedState),
+  slicer: paths => state => {
+    const persistedState = {};
+    paths.forEach(path => {
+      const stateVal = _.get(state, path);
+      _.set(persistedState, path, stateVal);
+    });
+    return persistedState;
+  },
+};
 
 const history = createBrowserHistory();
 
@@ -33,7 +51,7 @@ export default function configureStore(preloadedState) {
   const middlewares = [thunkMiddleware, locationMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
-  const enhancers = [middlewareEnhancer];
+  const enhancers = [middlewareEnhancer, persistState(REDUX_LOCALSTORAGE_PATHS, REDUX_LOCALSTORAGE_CONFIG)];
   const composedEnhancers = composeWithDevTools(...enhancers);
 
   const store = createStore(reducersWithLocation, preloadedState, composedEnhancers);
