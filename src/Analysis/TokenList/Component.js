@@ -1,10 +1,11 @@
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { EuiBadge } from '@elastic/eui';
 
 const TokenList = (props) => {
-  const { selectTokens, tokens, unselectTokens } = props;
+  const { enableTokenOffsets, selectTokens, tokens, unselectTokens } = props;
   const chips = _.map(tokens, ({ selected, start_offset: offset, token}, idx) => (
     <EuiBadge
       color={selected ? 'primary' : 'default'}
@@ -13,7 +14,11 @@ const TokenList = (props) => {
       onClickAriaLabel={`Select tokens at offset = ${offset}`}
       style={{ margin: 5 }}
     >
-      <span style={{ marginRight: 10, paddingRight: 7, borderRight: '2px solid black' }}>{offset}</span>
+      {
+        enableTokenOffsets && (
+          <span style={{ marginRight: 10, paddingRight: 7, borderRight: '2px solid black' }}>{offset}</span>
+        )
+      }
       {token}
     </EuiBadge>
   ));
@@ -22,6 +27,17 @@ const TokenList = (props) => {
       {chips}
     </React.Fragment>
   );
+};
+
+TokenList.propTypes = {
+  enableTokenOffsets: PropTypes.bool,
+  selectTokens: PropTypes.func,
+  tokens: PropTypes.arrayOf(PropTypes.object),
+  unselectTokens: PropTypes.func,
+};
+
+TokenList.defaultProps = {
+  enableTokenOffsets: true,
 };
 
 export default TokenList;
