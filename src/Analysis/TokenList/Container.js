@@ -6,9 +6,10 @@ import TokenList from './Component';
 import { selectTokens, unselectTokens } from './actions';
 
 function mapStateToProps(state, ownProps) {
-  const { tokenlistReducer: selectedTokenOffset } = state;
+  const { tokenlistReducer: selectedTokenOffset, form } = state;
   const { tokens } = ownProps;
   return {
+    enableTokenOffsets: _.get(form, 'preferences.values.enable_token_offsets'),
     tokens: _.map(tokens, token => _.assign({}, token, {
       selected: token.start_offset === selectedTokenOffset,
     })),
