@@ -12,6 +12,7 @@ import rootReducer from './reducers';
 const REDUX_LOCALSTORAGE_PATHS = [
   'form.preferences.values',
   'form.settings.values',
+  'savedItems',
 ];
 const REDUX_LOCALSTORAGE_CONFIG = {
   key: 'elasticsearch-analysis-inspector/preferences',
@@ -32,11 +33,11 @@ const paramSetup = { global: {} };
 const mapLocationToState = (state, location) => {
   const compressedStateFromLocationQuery = _.isString(location.search) && (new URLSearchParams(location.search.substring(1))).get('q');
   return compressedStateFromLocationQuery
-    ? decompress(compressedStateFromLocationQuery)
+    ? _.merge({}, state, decompress(compressedStateFromLocationQuery))
     : state;
 };
 const overwriteLocationHandling = (initialState, nextState, location) => {
-  const OMITTED_STATE_PROPS = ['flyoutReducer'];
+  const OMITTED_STATE_PROPS = ['flyoutReducer', 'form', 'savedItems'];
   return {
     location: _.assign({}, location, {
       search: `?q=${compress(_.omit(nextState, OMITTED_STATE_PROPS))}`,

@@ -50,9 +50,4 @@ function Preferences(props) {
 export default reduxForm({
   destroyOnUnmount: false,
   form: 'preferences',
-  initialValues: {
-    'default_editor': 'friendly',
-    'editor_theme': 'vs',
-    'enable_token_offsets': true,
-  },
 })(Preferences);
