@@ -2,6 +2,7 @@ import _ from 'lodash';
 import marked from 'marked';
 import request from 'axios';
 import { openFlyout } from '../Flyout/actions';
+import { removeSavedItem } from '../SavedItems/actions';
 
 function showInfo() {
   return openFlyout({
@@ -11,6 +12,7 @@ function showInfo() {
 
 export {
   openFlyout,
+  removeSavedItem,
   showInfo,
 };
 
