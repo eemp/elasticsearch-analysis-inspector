@@ -6,7 +6,7 @@ import Flyout from './Component';
 import { closeFlyout } from './actions';
 
 function mapStateToProps(state) {
-  return _.get(state, 'flyoutReducer');
+  return _.get(state, 'flyoutReducer') || {};
 }
 
 function mapDispatchToProps(dispatch) {
