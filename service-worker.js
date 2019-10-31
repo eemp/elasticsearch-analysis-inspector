@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/elasticsearch-analysis-inspector/precache-manifest.6bbae26eaec434a8f8635cb3b9066560.js"
+  "/elasticsearch-analysis-inspector/precache-manifest.69ccee4bc3088ba93f0e13be9a0bec38.js"
 );
 
 self.addEventListener('message', (event) => {
