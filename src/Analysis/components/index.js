@@ -31,7 +31,7 @@ class SaveForm extends React.Component {
 }
 
 export default function AnalysisList(props) {
-  const { analyses, addAnalysis, addSavedItem, defaultEditor, editorTheme, removeAnalysis, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
+  const { analyses, addAnalysis, addSavedItem, defaultEditor, diffEditor, editorTheme, removeAnalysis, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
 
   const [ isSavePopoverOpen, setSavePopoverOpen ] = useState(false);
   const closeSavePopover = () => setSavePopoverOpen(false);
@@ -63,6 +63,7 @@ export default function AnalysisList(props) {
                 {...analysis}
                 analysisId={analysis.key}
                 defaultEditor={defaultEditor}
+                diffEditor={diffEditor}
                 editorTheme={editorTheme}
                 key={analysis.key}
                 onChange={updateAnalysis}

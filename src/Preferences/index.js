@@ -28,18 +28,21 @@ function Preferences(props) {
         title={<h3>Analysis Editor</h3>}
         description="Change how you modify analyzer definitions."
       >
-        <EuiFormRow helpText="By default, how would you prefer to update analyzer definitions?" >
+        <EuiFormRow helpText="By default, how would you prefer to update analyzer definitions?">
           <Field name="default_editor" component={EuiSelectField} options={EDITOR_OPTIONS} />
         </EuiFormRow>
         <EuiFormRow helpText="When you use the monaco code editor, which theme would you like to see?">
           <Field name="editor_theme" component={EuiSelectField} options={EDITOR_THEME_OPTIONS} />
+        </EuiFormRow>
+        <EuiFormRow helpText="Would you like to use the diff editor?">
+          <Field name="diff_editor" component={EuiSwitchField} />
         </EuiFormRow>
       </EuiDescribedFormGroup>
       <EuiDescribedFormGroup
         title={<h3>Analysis Results</h3>}
         description="Change how analysis results are presented."
       >
-        <EuiFormRow helpText="Would you like to have token offset prefixes with each token?" >
+        <EuiFormRow helpText="Would you like to have token offset prefixes with each token?">
           <Field name="enable_token_offsets" component={EuiSwitchField} />
         </EuiFormRow>
       </EuiDescribedFormGroup>

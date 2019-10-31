@@ -10,6 +10,7 @@ function mapStateToProps(state) {
   return {
     analyses: _.get(state, 'analysisReducer'),
     defaultEditor: _.get(state, 'form.preferences.values.default_editor'),
+    diffEditor: _.get(state, 'form.preferences.values.diff_editor'),
     editorTheme: _.get(state, 'form.preferences.values.editor_theme'),
     text: _.get(state, 'sampletextReducer'),
   };
