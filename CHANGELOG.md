@@ -2,6 +2,13 @@
 
 #### [v2.3.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.2.1...v2.3.0) on 31 October 2019
 
+##### Updates
+
+- feat: allow users to save and reload app states [`c36afc2`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/c36afc2135c130850f6d259ebb54dd3ed3277d24)
+- feat: add a preference option for toggling token offsets on/off [`1e00a8f`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/1e00a8fdc1d534cb6378dcb7cd53de8ec74254b8)
+- feat: remember users' preferences and settings via localStorage [`6712fb1`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/6712fb166db69214d63756c7dcfbba3301d1df98)
+- feat: add comparison of tokenizers and stemmers [`8e4cb46`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/8e4cb460a7b8f7593c15952b3694b507d84c5a83)
+
 #### [v2.2.1](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.2.0...v2.2.1) on 27 October 2019
 
 ##### Fixes
