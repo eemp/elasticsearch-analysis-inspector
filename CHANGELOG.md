@@ -1,5 +1,15 @@
 ### Changelog
 
+#### [v2.4.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.3.0...v2.4.0) on 31 October 2019
+
+##### Updates
+
+- feat: support edits via a diff code editor (MonacoDiffEditor) [`c2322c4`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/c2322c438f544b9a387a8363b8f0396a5927aad8)
+
+##### Fixes
+
+- fix: comparison urls to work in subdirectory prod host [`b67780e`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/b67780e573fee1e86c34985700b0c325f95edada)
+
 #### [v2.3.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.2.1...v2.3.0) on 31 October 2019
 
 ##### Updates
