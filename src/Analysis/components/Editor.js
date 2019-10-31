@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import inflection from 'inflection';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 import React from 'react';
 
 import { EuiComboBox, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiIcon, EuiSpacer, EuiTabbedContent, EuiTextColor } from '@elastic/eui';
@@ -73,16 +73,23 @@ class Editor extends React.Component {
     this.setState({ selectedTab });
     if(selectedTab.id !== 'code') {
       this.setState({
-        editorContent: this.refs.monaco.editor.getValue(),
-        ...toFriendlyRep(this.refs.monaco.editor.getValue()),
+        editorContent: this.getEditorValue(),
+        ...toFriendlyRep(this.getEditorValue()),
       });
     }
+  }
+
+  getEditorValue() {
+    const { diffEditor } = this.props;
+    return diffEditor
+      ? this.refs.monaco.editor.getModifiedEditor().getValue()
+      : this.refs.monaco.editor.getValue();
   }
 
   getValue() {
     const { analyzer, char_filter, filter, selectedTab, tokenizer } = this.state;
     return _.get(selectedTab, 'id') === 'code'
-      ? JSON.parse(this.refs.monaco.editor.getValue())
+      ? JSON.parse(this.getEditorValue())
       : {
         analyzer: _.get(analyzer, '0.value') !== 'custom'
           ? _.get(analyzer, '0.value')
@@ -98,9 +105,11 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { defaultEditor, theme } = this.props;
+    const { defaultEditor, diffEditor, theme } = this.props;
     const { analyzer, char_filter, editorContent, filter, tokenizer, validation } = this.state;
     const codeEditorError = _.get(validation, 'codeEditor');
+
+    const CodeEditor = diffEditor ? MonacoDiffEditor : MonacoEditor;
 
     const tabs = [
       {
@@ -167,12 +176,14 @@ class Editor extends React.Component {
         ),
         content: (
           <React.Fragment>
-            <MonacoEditor
+            <CodeEditor
               defaultValue={editorContent}
               editorWillMount={this.editorWillMount}
               height={200}
               language="json"
               onChange={this.onCodeEditorChange}
+              options={{ renderSideBySide: false }}
+              original={editorContent}
               ref="monaco"
               theme={theme}
             />
