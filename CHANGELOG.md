@@ -1,5 +1,16 @@
 ### Changelog
 
+#### [v2.5.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.4.0...v2.5.0) on 10 November 2019
+
+##### Updates
+
+- feat: add a demo of html strip character filter [`4dfcc48`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/4dfcc48140a0533eec464f249a03703d4a2f145c)
+
+##### Fixes
+
+- fix: honor code editor updates correctly [`27e5c3f`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/27e5c3f82ea821e8a4e35f5471f1212916707468)
+- fix: update state merges to correctly reflect url state [`7e05624`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/7e0562496e70e324657be2252e3a828d77d6266e)
+
 #### [v2.4.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.3.0...v2.4.0) on 31 October 2019
 
 ##### Updates
