@@ -88,7 +88,7 @@ class Editor extends React.Component {
 
   getValue() {
     const { analyzer, char_filter, filter, selectedTab, tokenizer } = this.state;
-    return _.get(selectedTab, 'id') === 'code'
+    return _.get(selectedTab || this.getInitialTab(), 'id') === 'code'
       ? JSON.parse(this.getEditorValue())
       : {
         analyzer: _.get(analyzer, '0.value') !== 'custom'
@@ -104,14 +104,14 @@ class Editor extends React.Component {
       };
   }
 
-  render() {
-    const { defaultEditor, diffEditor, theme } = this.props;
+  getEditorTabs() {
+    const { diffEditor, theme } = this.props;
     const { analyzer, char_filter, editorContent, filter, tokenizer, validation } = this.state;
     const codeEditorError = _.get(validation, 'codeEditor');
 
     const CodeEditor = diffEditor ? MonacoDiffEditor : MonacoEditor;
 
-    const tabs = [
+    return [
       {
         id: 'form',
         name: (
@@ -196,10 +196,20 @@ class Editor extends React.Component {
         ),
       },
     ];
+  }
+
+  getInitialTab() {
+    const { defaultEditor } = this.props;
+    const tabs = this.getEditorTabs();
+    return defaultEditor === 'code' ? tabs[1] : tabs[0];
+  }
+
+  render() {
+    const tabs = this.getEditorTabs();
 
     return (
       <EuiTabbedContent
-        initialSelectedTab={defaultEditor === 'code' ? tabs[1] : tabs[0]}
+        initialSelectedTab={this.getInitialTab()}
         tabs={tabs}
         onTabClick={this.onTabChange}
       />
