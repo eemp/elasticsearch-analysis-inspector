@@ -33,7 +33,9 @@ const paramSetup = { global: {} };
 const mapLocationToState = (state, location) => {
   const compressedStateFromLocationQuery = _.isString(location.search) && (new URLSearchParams(location.search.substring(1))).get('q');
   return compressedStateFromLocationQuery
-    ? _.merge({}, state, decompress(compressedStateFromLocationQuery))
+    ? _.mergeWith({}, state, decompress(compressedStateFromLocationQuery), (objValue, srcValue) => {
+      if(_.isArray(objValue)) return srcValue;
+    })
     : state;
 };
 const overwriteLocationHandling = (initialState, nextState, location) => {
