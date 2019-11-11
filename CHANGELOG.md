@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.6.1](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.0...v2.6.1) on 11 November 2019
+
+##### Fixes
+
+- fix: update tutorial so that it may be rerun [`0475476`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/0475476dd6a48a6b944711e6269c692ae655af9f)
+
 #### [v2.6.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.5.0...v2.6.0) on 11 November 2019
 
 ##### Updates
