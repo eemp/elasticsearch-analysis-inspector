@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import classNames from 'classnames';
-import Joyride from 'react-joyride';
+import Joyride, { STATUS } from 'react-joyride';
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { EuiPanel, EuiPopoverTitle, EuiText } from '@elastic/eui';
+import * as actions from './actions';
 
 const commonStepProps = {
   disableBeacon: true,
@@ -67,33 +67,48 @@ const steps = [
   }
 ];
 
-function OurJoyride(props) {
-  const { run } = props;
-  return (
-    <Joyride
-      continuous={true}
-      hideBackButton={true}
-      locale={{
-        last: 'Finish',
-      }}
-      run={run}
-      scrollToFirstStep={true}
-      showSkipButton={true}
-      steps={steps}
-      styles={{
-        options: {
-          arrowColor: 'rgba(0, 0, 0, 0.5)',
-          backgroundColor: '#fff',
-          overlayColor: 'rgba(0, 0, 0, 0.5)',
-          primaryColor: '#006BB4',
-          spotlightShadow: '0 0 0 rgba(0, 0, 0, 0.5)',
-          textColor: '#333',
-          width: undefined,
-          zIndex: 1000,
-        },
-      }}
-    />
-  );
+class OurJoyride extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onProgress = this.onProgress.bind(this);
+  }
+
+  onProgress({ status }) {
+    const { stopJoyride } = this.props;
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      stopJoyride();
+    }
+  }
+
+  render() {
+    const { run } = this.props;
+    return (
+      <Joyride
+        callback={this.onProgress}
+        continuous={true}
+        hideBackButton={true}
+        locale={{
+          last: 'Finish',
+        }}
+        run={run}
+        scrollToFirstStep={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            arrowColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: '#fff',
+            overlayColor: 'rgba(0, 0, 0, 0.5)',
+            primaryColor: '#006BB4',
+            spotlightShadow: '0 0 0 rgba(0, 0, 0, 0.5)',
+            textColor: '#333',
+            width: undefined,
+            zIndex: 1000,
+          },
+        }}
+      />
+    );
+  }
 }
 
 function mapStateFromProps(state) {
@@ -102,4 +117,8 @@ function mapStateFromProps(state) {
   };
 }
 
-export default connect(mapStateFromProps)(OurJoyride);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateFromProps, mapDispatchToProps)(OurJoyride);
