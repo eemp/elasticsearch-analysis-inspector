@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.6.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.5.0...v2.6.0) on 11 November 2019
+
+##### Updates
+
+- feat: add a quick tutorial highlighting key aspects of app [`e1041ad`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/e1041addd703f1cc285f25958ef967efb4d1782a)
+
 #### [v2.5.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.4.0...v2.5.0) on 10 November 2019
 
 ##### Updates
