@@ -9,6 +9,7 @@ import AnalysisList from './Analysis';
 import AppBar from './AppBar';
 import AppFlyout from './Flyout';
 import configureStore from './store';
+import Joyride from './Joyride';
 import NavDrawer from './NavDrawer';
 import SampleText from './SampleText';
 
@@ -28,6 +29,7 @@ class App extends React.Component {
           </EuiPageBody>
         </EuiPage>
         <AppFlyout />
+        <Joyride />
       </React.Fragment>
     );
   }

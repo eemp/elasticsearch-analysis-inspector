@@ -15,13 +15,13 @@ export default function CustomAppBar(props) {
       <EuiHeader>
         <EuiHeaderSection grow={true}>
           <EuiHeaderSectionItem>
-            <EuiHeaderLogo iconType="searchProfilerApp">Elasticsearch Analysis Inspector</EuiHeaderLogo>
+            <EuiHeaderLogo id="app-logo" iconType="searchProfilerApp">Elasticsearch Analysis Inspector</EuiHeaderLogo>
           </EuiHeaderSectionItem>
         </EuiHeaderSection>
         <EuiHeaderSection side="right">
           <EuiHeaderSectionItem border="none">
             <EuiHeaderLink href="https://github.com/eemp/elasticsearch-analysis-inspector" target="_blank">
-              <EuiIcon type="logoGithub" size="l"/>
+              <EuiIcon id="github-link" type="logoGithub" size="l"/>
             </EuiHeaderLink>
           </EuiHeaderSectionItem>
         </EuiHeaderSection>

@@ -17,16 +17,22 @@ const STEMMER_COMPARE_URL = '?q=analysisReducer%7Cdefinition%7Cchar_filter%7Chtm
 class NavDrawer extends React.Component {
   render() {
     const self = this;
-    const { openFlyout, removeSavedItem, savedItems, showInfo } = this.props;
+    const { openFlyout, removeSavedItem, savedItems, showInfo, showTutorial } = this.props;
     const drawerOptions = _.compact([
       {
         label: 'About the App',
         iconType: 'help',
         onClick: showInfo,
       },
+      {
+        label: 'Quick Tutorial',
+        iconType: 'videoPlayer',
+        onClick: showTutorial,
+      },
       !_.isEmpty(savedItems) && {
         label: 'Saved Items',
         iconType: 'reportingApp',
+        id: 'saved-items-button',
         flyoutMenu: {
           title: 'Restore',
           listItems: _.map(savedItems, toSavedItemsMenuOption),
@@ -35,6 +41,7 @@ class NavDrawer extends React.Component {
       {
         label: 'Demoes',
         iconType: 'globe',
+        id: 'demoes-button',
         flyoutMenu: {
           title: 'Compare',
           listItems: [
@@ -57,8 +64,9 @@ class NavDrawer extends React.Component {
         },
       },
       {
-        label: 'Preferences',
         iconType: 'wrench',
+        id: 'preferences-button',
+        label: 'Preferences',
         onClick: showPreferences,
       },
       {

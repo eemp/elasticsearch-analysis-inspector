@@ -50,7 +50,7 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { definition, defaultEditor, diffEditor, description, editorTheme, loading, onClose } = this.props;
+    const { definition, defaultEditor, diffEditor, description, editorTheme, isFirst, loading, onClose } = this.props;
     const { name } = this.state;
     return (
       <EuiPanel style={{ position: 'relative' }}>
@@ -79,7 +79,7 @@ class Analysis extends React.Component {
                 {
                   this.inEditMode()
                     ? <EuiButtonIcon aria-label="confirm" iconType="check" onClick={this.onChange} />
-                    : <EuiButtonIcon aria-label="edit" iconType="pencil" onClick={this.onEdit} />
+                    : <EuiButtonIcon aria-label="edit" iconType="pencil" id={isFirst ? 'first-editor' : undefined} onClick={this.onEdit} />
                 }
               </EuiFlexItem>
               <EuiFlexItem>

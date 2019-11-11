@@ -41,12 +41,12 @@ export default function AnalysisList(props) {
     <React.Fragment>
       <EuiFlexGroup justifyContent="flexEnd" key="new-analysis">
         <EuiFlexItem grow={false}>
-          <EuiButton fill iconType="plusInCircle" onClick={addAnalysis} style={{float: 'right'}}>New Analysis</EuiButton>
+          <EuiButton fill iconType="plusInCircle" id="new-button" onClick={addAnalysis} style={{float: 'right'}}>New Analysis</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <EuiPopover
             ownFocus
-            button={<EuiButton iconType="save" onClick={toggleSavePopover}>Save</EuiButton>}
+            button={<EuiButton iconType="save" id="save-button" onClick={toggleSavePopover}>Save</EuiButton>}
             isOpen={isSavePopoverOpen}
             closePopover={closeSavePopover}
           >
@@ -56,7 +56,7 @@ export default function AnalysisList(props) {
       </EuiFlexGroup>
       <EuiSpacer />
       {
-        _.map(analyses, analysis => (
+        _.map(analyses, (analysis, idx) => (
           <EuiFlexGroup key={analysis.key}>
             <EuiFlexItem>
               <Analysis
@@ -64,6 +64,7 @@ export default function AnalysisList(props) {
                 analysisId={analysis.key}
                 defaultEditor={defaultEditor}
                 diffEditor={diffEditor}
+                isFirst={idx === 0}
                 editorTheme={editorTheme}
                 key={analysis.key}
                 onChange={updateAnalysis}

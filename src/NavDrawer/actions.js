@@ -3,17 +3,27 @@ import marked from 'marked';
 import request from 'axios';
 import { openFlyout } from '../Flyout/actions';
 import { removeSavedItem } from '../SavedItems/actions';
+import { runJoyride } from '../Joyride/actions';
 
 function showInfo() {
-  return openFlyout({
-    content: getInfoContent(),
-  });
+  return (dispatch) => {
+    dispatch(openFlyout({
+      content: getInfoContent(),
+    }));
+  };
+}
+
+function showTutorial() {
+  return (dispatch) => {
+    dispatch(runJoyride());
+  };
 }
 
 export {
   openFlyout,
   removeSavedItem,
   showInfo,
+  showTutorial,
 };
 
 function getInfoContent() {
