@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.6.2](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.1...v2.6.2) on 12 November 2019
+
+##### Fixes
+
+- fix(store): avoid decoding state from URL twice so that urls can be restored correctly to redux state [`9356c55`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/9356c5581b7b95767062243abe65a1fd4d7882fc)
+
 #### [v2.6.1](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.0...v2.6.1) on 11 November 2019
 
 ##### Fixes
