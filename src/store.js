@@ -72,5 +72,5 @@ function compress(state) {
 }
 
 function decompress(compressedState) {
-  return jsonpack.unpack(decodeURIComponent(compressedState));
+  return jsonpack.unpack(compressedState);
 }
