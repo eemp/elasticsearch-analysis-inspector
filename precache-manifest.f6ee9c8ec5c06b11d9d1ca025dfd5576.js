@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "858023f41199e500f142fa766336c87e",
+    "revision": "41a51de44093112491862ab600379d5d",
     "url": "/elasticsearch-analysis-inspector/index.html"
   },
   {
