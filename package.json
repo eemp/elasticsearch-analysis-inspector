@@ -2,7 +2,8 @@
   "name": "elasticsearch-analysis-inspector",
   "version": "2.6.2",
   "private": true,
-  "homepage": "https://eemp.io/elasticsearch-analysis-inspector",
+  "__OLD__homepage": "https://eemp.io/elasticsearch-analysis-inspector",
+  "homepage": "https://eai.eemp.io/",
   "dependencies": {
     "@elastic/datemath": "^5.0.2",
     "@elastic/eui": "^14.2.0",
