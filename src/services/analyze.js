@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Promise from 'bluebird';
 import request from 'axios';
 
-const SERVICE_URL = 'https://hear2learn.azurewebsites.net/_analyze';
+const SERVICE_URL = 'https://elasticsearch.eemp.io/_analyze';
 
 export default function updateAnalyses(analyses, text) {
   return Promise.mapSeries(analyses, analysis => {
