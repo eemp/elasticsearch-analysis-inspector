@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.7.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.2...v2.7.0) on 3 February 2020
+
+##### Updates
+
+- feat: update analysis list to allow reordering via DnD [`11777fb`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/11777fb882163c203d103b1d8e4b9d2045029b95)
+
 #### [v2.6.2](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.1...v2.6.2) on 12 November 2019
 
 ##### Fixes
