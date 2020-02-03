@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import { EuiButtonIcon, EuiDelayRender, EuiFlexGroup, EuiFlexItem, EuiLoadingContent, EuiPanel, EuiProgress, EuiFieldText, EuiTitle } from '@elastic/eui';
+import { EuiButtonIcon, EuiDelayRender, EuiFlexGroup, EuiFlexItem, EuiIcon, EuiLoadingContent, EuiPanel, EuiProgress, EuiFieldText, EuiTitle } from '@elastic/eui';
 
 import Description from './Description';
 import Editor from './Editor';
@@ -50,10 +50,10 @@ class Analysis extends React.Component {
   }
 
   render() {
-    const { definition, defaultEditor, diffEditor, description, editorTheme, isFirst, loading, onClose } = this.props;
+    const { definition, defaultEditor, diffEditor, description, dragHandleProps={}, editorTheme, isFirst, loading, onClose } = this.props;
     const { name } = this.state;
     return (
-      <EuiPanel style={{ position: 'relative' }}>
+      <EuiPanel style={{ position: 'relative', marginBottom: 20 }}>
         {
           loading && (
             <EuiDelayRender>
@@ -61,47 +61,56 @@ class Analysis extends React.Component {
             </EuiDelayRender>
           )
         }
-        <EuiFlexGroup responsive={false} style={{ marginBottom: 10 }}>
-          <EuiFlexItem grow={true}>
-            {
-              this.inEditMode()
-                ? <EuiFieldText
-                  defaultValue={name}
-                  inputRef={ref => this.nameField = ref}
-                  prepend="Analysis Name"
-                />
-                : <EuiTitle><h3>{name}</h3></EuiTitle>
-            }
-          </EuiFlexItem>
+        <EuiFlexGroup alignItems="center">
           <EuiFlexItem grow={false}>
-            <EuiFlexGroup responsive={false}>
-              <EuiFlexItem>
+            <div {...dragHandleProps}>
+              <EuiIcon type="grab" />
+            </div>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiFlexGroup responsive={false} style={{ marginBottom: 10 }}>
+              <EuiFlexItem grow={true}>
                 {
                   this.inEditMode()
-                    ? <EuiButtonIcon aria-label="confirm" iconType="check" onClick={this.onChange} />
-                    : <EuiButtonIcon aria-label="edit" iconType="pencil" id={isFirst ? 'first-editor' : undefined} onClick={this.onEdit} />
+                    ? <EuiFieldText
+                      defaultValue={name}
+                      inputRef={ref => this.nameField = ref}
+                      prepend="Analysis Name"
+                    />
+                    : <EuiTitle><h3>{name}</h3></EuiTitle>
                 }
               </EuiFlexItem>
-              <EuiFlexItem>
-                <EuiButtonIcon aria-label="close" onClick={onClose} iconType="trash"/>
+              <EuiFlexItem grow={false}>
+                <EuiFlexGroup responsive={false}>
+                  <EuiFlexItem>
+                    {
+                      this.inEditMode()
+                        ? <EuiButtonIcon aria-label="confirm" iconType="check" onClick={this.onChange} />
+                        : <EuiButtonIcon aria-label="edit" iconType="pencil" id={isFirst ? 'first-editor' : undefined} onClick={this.onEdit} />
+                    }
+                  </EuiFlexItem>
+                  <EuiFlexItem>
+                    <EuiButtonIcon aria-label="close" onClick={onClose} iconType="trash"/>
+                  </EuiFlexItem>
+                </EuiFlexGroup>
               </EuiFlexItem>
             </EuiFlexGroup>
+            {
+              !this.inEditMode()
+                ? <p>{description}</p>
+                : null
+            }
+            <div style={{ marginTop: 24 }}>
+              {
+                loading
+                  ? <EuiLoadingContent lines={2} />
+                  : this.inEditMode()
+                    ? <Editor content={definition} ref="editor" defaultEditor={defaultEditor} diffEditor={diffEditor} theme={editorTheme} />
+                    : <TokenList {...this.props} />
+              }
+            </div>
           </EuiFlexItem>
         </EuiFlexGroup>
-        {
-          !this.inEditMode()
-            ? <p>{description}</p>
-            : null
-        }
-        <div style={{ marginTop: 24 }}>
-          {
-            loading
-              ? <EuiLoadingContent lines={2} />
-              : this.inEditMode()
-                ? <Editor content={definition} ref="editor" defaultEditor={defaultEditor} diffEditor={diffEditor} theme={editorTheme} />
-                : <TokenList {...this.props} />
-          }
-        </div>
       </EuiPanel>
     );
   }

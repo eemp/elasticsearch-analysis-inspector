@@ -1,7 +1,19 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
 
-import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiForm, EuiFormRow, EuiPopover, EuiFieldText, EuiSpacer } from '@elastic/eui';
+import {
+  EuiButton,
+  EuiDragDropContext,
+  EuiDraggable,
+  EuiDroppable,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiForm,
+  EuiFormRow,
+  EuiPopover,
+  EuiFieldText,
+  EuiSpacer
+} from '@elastic/eui';
 
 import Analysis from './Item';
 
@@ -31,7 +43,7 @@ class SaveForm extends React.Component {
 }
 
 export default function AnalysisList(props) {
-  const { analyses, addAnalysis, addSavedItem, defaultEditor, diffEditor, editorTheme, removeAnalysis, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
+  const { analyses, addAnalysis, addSavedItem, defaultEditor, diffEditor, editorTheme, removeAnalysis, reorderAnalyses, updateAnalysis, selectedTokenPosition, selectToken, text } = props;
 
   const [ isSavePopoverOpen, setSavePopoverOpen ] = useState(false);
   const closeSavePopover = () => setSavePopoverOpen(false);
@@ -55,28 +67,37 @@ export default function AnalysisList(props) {
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiSpacer />
-      {
-        _.map(analyses, (analysis, idx) => (
-          <EuiFlexGroup key={analysis.key}>
-            <EuiFlexItem>
-              <Analysis
-                {...analysis}
-                analysisId={analysis.key}
-                defaultEditor={defaultEditor}
-                diffEditor={diffEditor}
-                isFirst={idx === 0}
-                editorTheme={editorTheme}
+      <EuiDragDropContext onDragEnd={reorderAnalyses}>
+        <EuiDroppable droppableId="ANALYSES_DROPPABLE_AREA" spacing="m">
+          {
+            _.map(analyses, (analysis, idx) => (
+              <EuiDraggable
+                spacing="m"
                 key={analysis.key}
-                onChange={updateAnalysis}
-                onClose={() => removeAnalysis(analysis.key)}
-                onTokenSelect={selectToken}
-                selectedStartOffset={selectedTokenPosition}
-                text={text}
-              />
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        ))
-      }
+                index={idx}
+                draggableId={analysis.key}
+                customDragHandle={true}>
+                {provided => (
+                  <Analysis
+                    {...analysis}
+                    analysisId={analysis.key}
+                    defaultEditor={defaultEditor}
+                    diffEditor={diffEditor}
+                    dragHandleProps={provided.dragHandleProps}
+                    isFirst={idx === 0}
+                    editorTheme={editorTheme}
+                    onChange={updateAnalysis}
+                    onClose={() => removeAnalysis(analysis.key)}
+                    onTokenSelect={selectToken}
+                    selectedStartOffset={selectedTokenPosition}
+                    text={text}
+                  />
+                )}
+              </EuiDraggable>
+            ))
+          }
+        </EuiDroppable>
+      </EuiDragDropContext>
     </React.Fragment>
   );
 }

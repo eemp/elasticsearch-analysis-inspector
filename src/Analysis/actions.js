@@ -3,6 +3,7 @@ import { openFlyout } from '../Flyout/actions';
 
 export const ADD_ANALYSIS = 'analysis/add';
 export const REMOVE_ANALYSIS = 'analysis/remove';
+export const REORDER_ANALYSES = 'analysis/reorder';
 export const UPDATE_ANALYSIS = 'analysis/update';
 
 const DEFAULT_NEW_ANALYSIS = {
@@ -25,6 +26,10 @@ export function addAnalysis() {
 
 export function removeAnalysis(analysisKey) {
   return action(REMOVE_ANALYSIS, analysisKey);
+}
+
+export function reorderAnalyses({source, destination}) {
+  return action(REORDER_ANALYSES, { source, destination });
 }
 
 export function updateAnalysis(updatedAnalysis) {

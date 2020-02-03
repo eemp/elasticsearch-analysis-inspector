@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import AnalysisList from './components';
-import { addAnalysis, removeAnalysis, updateAnalysis } from './actions';
+import { addAnalysis, removeAnalysis, reorderAnalyses, updateAnalysis } from './actions';
 import { addSavedItem } from '../SavedItems/actions';
 
 function mapStateToProps(state) {
@@ -17,7 +17,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addAnalysis, addSavedItem, removeAnalysis, updateAnalysis }, dispatch);
+  return bindActionCreators({ addAnalysis, addSavedItem, removeAnalysis, reorderAnalyses, updateAnalysis }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnalysisList);
