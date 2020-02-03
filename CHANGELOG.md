@@ -1,5 +1,11 @@
 ### Changelog
 
+#### [v2.7.1](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.7.0...v2.7.1) on 3 February 2020
+
+##### Fixes
+
+- fix: update draggable by removing extraneous spacing, fix buttons styling in mobile [`3c75efd`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/3c75efde816da57f733e8d66021e395dd8b1fa5e)
+
 #### [v2.7.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.6.2...v2.7.0) on 3 February 2020
 
 ##### Updates
