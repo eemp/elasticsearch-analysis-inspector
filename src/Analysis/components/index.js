@@ -53,14 +53,15 @@ export default function AnalysisList(props) {
     <React.Fragment>
       <EuiFlexGroup justifyContent="flexEnd" key="new-analysis">
         <EuiFlexItem grow={false}>
-          <EuiButton fill iconType="plusInCircle" id="new-button" onClick={addAnalysis} style={{float: 'right'}}>New Analysis</EuiButton>
+          <EuiButton fill fullWidth iconType="plusInCircle" id="new-button" onClick={addAnalysis}>New Analysis</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <EuiPopover
             ownFocus
-            button={<EuiButton iconType="save" id="save-button" onClick={toggleSavePopover}>Save</EuiButton>}
+            button={<EuiButton fullWidth iconType="save" id="save-button" onClick={toggleSavePopover}>Save</EuiButton>}
             isOpen={isSavePopoverOpen}
             closePopover={closeSavePopover}
+            display="block"
           >
             <SaveForm onSave={_.over([addSavedItem, closeSavePopover])} />
           </EuiPopover>
@@ -68,15 +69,17 @@ export default function AnalysisList(props) {
       </EuiFlexGroup>
       <EuiSpacer />
       <EuiDragDropContext onDragEnd={reorderAnalyses}>
-        <EuiDroppable droppableId="ANALYSES_DROPPABLE_AREA" spacing="m">
+        <EuiDroppable droppableId="ANALYSES_DROPPABLE_AREA">
           {
             _.map(analyses, (analysis, idx) => (
               <EuiDraggable
-                spacing="m"
                 key={analysis.key}
                 index={idx}
                 draggableId={analysis.key}
-                customDragHandle={true}>
+                customDragHandle={true}
+                spacing="l"
+                style={{ marginLeft: -8, marginRight: -8 }}
+              >
                 {provided => (
                   <Analysis
                     {...analysis}

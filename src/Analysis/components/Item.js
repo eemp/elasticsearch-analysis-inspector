@@ -53,7 +53,7 @@ class Analysis extends React.Component {
     const { definition, defaultEditor, diffEditor, description, dragHandleProps={}, editorTheme, isFirst, loading, onClose } = this.props;
     const { name } = this.state;
     return (
-      <EuiPanel style={{ position: 'relative', marginBottom: 20 }}>
+      <EuiPanel style={{ position: 'relative' }}>
         {
           loading && (
             <EuiDelayRender>
