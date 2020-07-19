@@ -16,7 +16,7 @@
     "jsonpack": "^1.1.5",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",
-    "moment": "^2.24.0",
+    "moment": "^2.27.0",
     "monaco-editor": "^0.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
