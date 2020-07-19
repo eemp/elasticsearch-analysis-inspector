@@ -9,7 +9,7 @@
     "@elastic/eui": "^14.2.0",
     "asciidoctor": "^2.0.3",
     "axios": "^0.19.0",
-    "bluebird": "^3.5.5",
+    "bluebird": "^3.7.2",
     "classnames": "^2.2.6",
     "history": "^4.10.1",
     "inflection": "^1.12.0",
