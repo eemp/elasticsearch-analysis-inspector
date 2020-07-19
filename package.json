@@ -28,7 +28,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.2.6",
     "redux-localstorage": "^0.4.1",
-    "redux-location-state": "^2.5.2",
+    "redux-location-state": "^2.8.2",
     "redux-thunk": "^2.3.0",
     "url-join": "^4.0.1",
     "uuid": "^3.3.3"
