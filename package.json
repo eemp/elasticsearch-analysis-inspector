@@ -7,23 +7,23 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.2",
     "@elastic/eui": "^14.2.0",
-    "asciidoctor": "^2.0.3",
+    "asciidoctor": "^2.2.0",
     "axios": "^0.19.0",
     "bluebird": "^3.5.5",
     "classnames": "^2.2.6",
-    "history": "^4.10.1",
+    "history": "^5.0.0",
     "inflection": "^1.12.0",
     "jsonpack": "^1.1.5",
     "lodash": "^4.17.15",
-    "marked": "^0.7.0",
+    "marked": "^1.1.1",
     "moment": "^2.24.0",
     "monaco-editor": "^0.17.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.13.1",
     "react-dom": "^16.8.6",
     "react-joyride": "^2.1.1",
     "react-monaco-editor": "^0.30.1",
-    "react-redux": "^7.1.1",
+    "react-redux": "^7.2.1",
     "react-scripts": "3.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.2.6",
@@ -31,7 +31,7 @@
     "redux-location-state": "^2.5.2",
     "redux-thunk": "^2.3.0",
     "url-join": "^4.0.1",
-    "uuid": "^3.3.3"
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "build": "react-scripts build",
@@ -59,7 +59,7 @@
     ]
   },
   "devDependencies": {
-    "auto-changelog": "^1.16.1",
+    "auto-changelog": "^2.2.0",
     "gh-pages": "^3.1.0"
   },
   "auto-changelog": {
