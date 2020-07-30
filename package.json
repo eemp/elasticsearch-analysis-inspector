@@ -14,7 +14,7 @@
     "history": "^5.0.0",
     "inflection": "^1.12.0",
     "jsonpack": "^1.1.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "marked": "^1.1.1",
     "moment": "^2.24.0",
     "monaco-editor": "^0.17.1",
