@@ -1,6 +1,6 @@
 {
   "name": "elasticsearch-analysis-inspector",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "private": true,
   "__OLD__homepage": "https://eemp.io/elasticsearch-analysis-inspector",
   "homepage": "https://eai.eemp.io/",

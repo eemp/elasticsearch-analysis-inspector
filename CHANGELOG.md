@@ -1,5 +1,12 @@
 ### Changelog
 
+#### [v2.8.0](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.7.1...v2.8.0) on 17 October 2020
+
+##### Updates
+
+- feat: update tokenizers demo to include demo of uax_url_email tokenizer [`2ab9bee`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/2ab9beef6f21cb9099f67b51b349378236ab2653)
+- feat: update tokenizers demo to include demo of uax_url_email tokenizer [`00542f5`](https://github.com/eemp/elasticsearch-analysis-inspector/commit/00542f5cfe69a34677449c29587367bb31109239)
+
 #### [v2.7.1](https://github.com/eemp/elasticsearch-analysis-inspector/compare/v2.7.0...v2.7.1) on 3 February 2020
 
 ##### Fixes
