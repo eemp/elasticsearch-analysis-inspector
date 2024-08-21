@@ -15,7 +15,9 @@ export default function CustomAppBar(props) {
       <EuiHeader>
         <EuiHeaderSection grow={true}>
           <EuiHeaderSectionItem>
-            <EuiHeaderLogo id="app-logo" iconType="searchProfilerApp">Elasticsearch Analysis Inspector</EuiHeaderLogo>
+            <h1>
+              <EuiHeaderLogo id="app-logo" iconType="searchProfilerApp">Elasticsearch Analysis Inspector</EuiHeaderLogo>
+            </h1>
           </EuiHeaderSectionItem>
         </EuiHeaderSection>
         <EuiHeaderSection side="right">
